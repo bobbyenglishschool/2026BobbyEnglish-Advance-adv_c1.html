@@ -36,7 +36,7 @@
             padding: 30px 40px;
         }
 
-        /* 🎯 任務 2：第一頁抬頭最上方動態智慧生產字樣（原樣原封不動，不破壞版面） */
+        /* 🎯 第一頁抬頭最上方動態智慧生產字樣 */
         .dynamic-top-banner {
             font-size: 15px;
             font-weight: bold;
@@ -406,7 +406,6 @@
             .extra-summer-box { border: 1px solid #666; background-color: transparent; }
         }
 
-        /* 改用橫向溢位自動縮放護盾，手機平板電腦 100% 畫面完美自適應且「表格不拆散、欄位不位移」 */
         @media (max-width: 768px) {
             body { padding: 8px; }
             .page { padding: 15px 10px; }
@@ -430,8 +429,6 @@
         <input type="hidden" id="sub_tuition" name="sub_tuition" value="0">
         <input type="hidden" id="sub_materials" name="sub_materials" value="0">
         <input type="hidden" id="sub_misc" name="sub_misc" value="0">
-        <input type="hidden" id="summer_weeks_selected" name="summer_weeks_selected" value="">
-        <input type="hidden" id="summer_pm_selected" name="summer_pm_selected" value="">
 
         <div class="page page1">
             <div id="dynamicBannerDisplay" class="dynamic-top-banner">載入中...</div>
@@ -442,7 +439,7 @@
                     <h2 class="sub-title" id="subTitleDisplay">Bobby English School - Smart Course Enrollment Form</h2>
                     <div class="contact-info">
                         <p><strong>電話 / Phone：</strong>03-2161338</p>
-                         <p><strong>官方 / Line：</strong>@bobbyenglish</p>
+                        <p><strong>官方 / Line：</strong>@bobbyenglish</p>
                         <p><strong>信箱 / E-mail：</strong>Joy@bobbyenglishschool.com</p>
                         <p><strong>地址 / Address：</strong>330 桃園市桃園區莊二街156號1樓</p>
                         <p><strong>立案字號 / Registration No.：</strong>府教社字第0930131461號</p>
@@ -489,11 +486,11 @@
                         <th><span class="zh-title">與學生關係</span><span class="en-title">Relationship</span></th>
                         <td><input type="text" name="relation" class="text-input" placeholder="" required></td>
                         <th><span class="zh-title">聯絡電話</span><span class="en-title">Phone Number</span></th>
-                        <td><input type="tel" name="phone" class="text-input" placeholder="主要聯絡手機" required></td>
+                        <td><input type="tel" name="phone" class="text-input" placeholder="0912345678" required></td>
                     </tr>
                     <tr>
                         <th><span class="zh-title">電子信箱</span><span class="en-title">E-mail</span></th>
-                        <td colspan="3"><input type="email" name="email" class="text-input" placeholder=""></td>
+                        <td colspan="3"><input type="email" name="email" class="text-input" placeholder="example@email.com"></td>
                         <th><span class="zh-title">LINE ID</span><span class="en-title">LINE ID</span></th>
                         <td><input type="text" name="line_id" class="text-input" placeholder="LINE ID"></td>
                     </tr>
@@ -593,7 +590,7 @@
                 </div>
                 <div class="term-item">
                     <strong>2. 請假與補課 / Leave & Make-up Lessons：</strong><br>
-                    因事 or 病假缺席者，請於上課前兩小時透過官方 LINE 或電話完成請假。完成請假者，本班將提供一對一或小組補課、輔導。無故缺課者（曠課）不予補課與退費。<br>
+                    因事或病假缺席者，請於上課前兩小時透過官方 LINE 或電話完成請假。完成請假者，本班將提供一對一或小組補課、輔導。無故缺課者（曠課）不予補課與退費。<br>
                     <span style="color: #555; font-style: italic;">In case of sick leave or personal leave, please notify the school via our official LINE account or phone at least 2 hours before class. For validated absences, the school will arrange one-on-one or small-group make-up tutoring. No make-up lessons or refunds will be provided for unexcused absences (truancy).</span>
                 </div>
                 <div class="term-item">
@@ -621,7 +618,8 @@
                     </div>
                     <div class="signature-row">
                         <span>日期 Date</span>
-                        <input type="date" name="parent_sig_date" class="signature-input" required>
+                        <!-- 🎯 補強：加入 ID 便於 JavaScript 自動感應帶入日期 -->
+                        <input type="date" name="parent_sig_date" id="parentSigDate" class="signature-input" required>
                     </div>
                 </div>
 
@@ -632,7 +630,8 @@
                     </div>
                     <div class="signature-row">
                         <span>日期 Date</span>
-                        <input type="date" name="teacher_sig_date" class="signature-input">
+                        <!-- 🎯 補強：加入 ID 便於 JavaScript 自動感應帶入日期 -->
+                        <input type="date" name="teacher_sig_date" id="teacherSigDate" class="signature-input">
                     </div>
                 </div>
             </div>
@@ -665,6 +664,11 @@ window.onload = function() {
     document.getElementById('subTitleDisplay').innerHTML = "Bobby English School - " + TARGET_COURSE + " Enrollment Form";
     document.getElementById('dynamicBannerDisplay').innerHTML = TARGET_COURSE + " 專屬智慧報名系統";
     
+    // 🎯 自動時光晶片：開啟頁面自動帶入當天日期
+    var today = new Date().toISOString().split('T')[0];
+    if (document.getElementById('parentSigDate')) document.getElementById('parentSigDate').value = today;
+    if (document.getElementById('teacherSigDate')) document.getElementById('teacherSigDate').value = today;
+
     calculateTuition();
 };
 
@@ -692,11 +696,9 @@ function calculateTuition() {
         document.getElementById('sub_materials').value = adv.m;
         document.getElementById('sub_misc').value = adv.ms;
         
-        // 🎯 黃金細節二修復：動態計算大腦實時重組，讓 "$" 符號與硬碼死數字完美扣合！
         totalInput.value = "$" + finalTotal;
         timeDisplay.innerText = adv.time;
 
-        /* 🚀 任務純淨連動：將原本殘留的「手抄」以及「手抄死數字」廢棄字符全數清除乾淨 */
         calcPreview.innerHTML = "📚 <b>" + TARGET_COURSE + " (" + statusKey + "方案) 費用即時拆解明細</b>：<br>" +
                                 "基本學費總計：$" + adv.t + " | 固定教材費：$" + adv.m + " | 當期學雜費：$" + adv.ms + "<br>" +
                                 "👉 <b>方案核定應繳總金額：NT$ " + finalTotal + " 元</b>";
@@ -720,6 +722,51 @@ function showImagePreview(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+
+// 🎯 核心補強：補齊遺失的表單送出事件監聽器與 GAS 自動連線晶片！
+document.getElementById('enrollmentForm').addEventListener('submit', function(e) {
+    e.preventDefault(); 
+    var form = this;
+    var submitBtn = document.getElementById('submitBtn');
+    
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = "正在同步巴比核心雲端校務資料庫...";
+    }
+    
+    var params = new URLSearchParams();
+    var baseUrl = window.location.origin + window.location.pathname;
+    var formElements = form.elements;
+    
+    for (var i = 0; i < formElements.length; i++) {
+        var el = formElements[i];
+        if (!el.name || el.type === 'file' || el.type === 'submit' || el.name.startsWith('_')) continue;
+        if (el.type === 'radio') {
+            if (el.checked) params.append(el.name, el.value);
+        } else {
+            if (el.value) params.append(el.name, el.value);
+        }
+    }
+    params.append('auto_print', 'true');
+    document.getElementById('printLinkInput').value = baseUrl + '?' + params.toString();
+    
+    var googleAppsScriptUrl = "https://script.google.com/macros/s/AKfycbxt07hF-qkXePULEBjuCpzdWnaeNWsTlQV7dRhch_iBwtVePOIJzldTAsR0LothoQ1l/exec";
+    
+    // 🎯 核心防護：加入 mode: 'no-cors' 避開瀏覽器跨域安全性連線阻斷
+    fetch(googleAppsScriptUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new URLSearchParams(new FormData(form))
+    })
+    .then(function() {
+        alert("🎉 巴比美語：單一課程專屬雲端連線登記成功！");
+        form.submit(); 
+    })
+    .catch(function(error) {
+        console.warn("GAS Sync notice:", error);
+        form.submit();
+    });
+});
 </script>
 </body>
 </html>

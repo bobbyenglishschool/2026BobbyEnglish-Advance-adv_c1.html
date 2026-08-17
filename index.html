@@ -17,7 +17,7 @@
             --uci-gold: #fecc07;
             --soft-red: #e74c3c;
             --card-bg: #f8fafc;
-            --border-color: #cbd5e1;
+            --border-color: #1b3d6d; /* 強制導向巴比深藍 */
             --text-main: #1e293b;
             --text-sub: #475569;
         }
@@ -107,7 +107,7 @@
         .photo-box {
             width: 2in;
             height: 2in;
-            border: 2px solid var(--uci-blue);
+            border: 2px solid var(--uci-blue) !important;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -162,7 +162,7 @@
             margin-bottom: 15px;
         }
 
-        /* 🔒 三大表格邊框防護：採用 collapse 演算法與實體深藍色 (#1b3d6d) */
+        /* 🔒 Aegis 核心 UI 規範 1：所有表格與內格線 100% 飽滿巴比深藍色實體化 */
         table {
             width: 100%;
             border-collapse: collapse !important;
@@ -170,6 +170,8 @@
             font-size: 13px;
             table-layout: fixed;
             border: 1px solid #1b3d6d !important;
+            border-radius: 0px;
+            overflow: hidden;
             background-color: #ffffff;
         }
 
@@ -225,6 +227,7 @@
             justify-content: flex-start;
         }
 
+        /* 🎯 Aegis 核心 UI 規範 5：選讀班別拆解兩行、去「班」字、100% 幾何精準居中 */
         .static-course-display {
             font-weight: bold;
             color: var(--uci-blue);
@@ -232,13 +235,18 @@
             width: 100%;
             height: 100%;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
         }
 
-        /* 出生年月日及小日曆圖檔靠右預留安全距離 */
+        /* 🎯 Aegis 核心 UI 規範 2：DOB 原生 Date Picker 靠右置中並預留 12px 安全氣墊防撞 */
         input[type="date"].text-input {
             display: block; 
             line-height: normal;
-            padding: 2px 8px 2px 2px !important;
+            padding-right: 12px !important;
             font-size: 11.5px !important;
             letter-spacing: -0.2px;
             text-align: right !important;
@@ -329,6 +337,9 @@
             background-color: #f0f4f8;
             padding: 14px 18px;
             border-left: 4px solid var(--uci-blue);
+            border-top: 1px solid #1b3d6d !important;
+            border-right: 1px solid #1b3d6d !important;
+            border-bottom: 1px solid #1b3d6d !important;
             font-size: 13.5px;
             margin-bottom: 22px;
             border-radius: 6px;
@@ -349,7 +360,7 @@
             background: #ffffff;
             padding: 10px 14px;
             border-radius: 6px;
-            border: 1px solid var(--border-color);
+            border: 1px solid #1b3d6d !important;
         }
 
         .terms-list strong {
@@ -377,7 +388,7 @@
         .signature-box {
             flex: 1;
             width: 50%; 
-            border: 1.5px solid var(--uci-blue);
+            border: 1.5px solid var(--uci-blue) !important;
             padding: 16px;
             border-radius: 8px;
             background-color: #fafbfc;
@@ -452,7 +463,7 @@
 
         .extra-summer-box {
             background-color: #f9fbfd;
-            border: 1px solid #bde0fe;
+            border: 1px solid #1b3d6d !important;
             padding: 15px;
             margin-top: 15px;
             border-radius: 6px;
@@ -461,7 +472,7 @@
         }
 
         .extra-summer-title {
-            color: #0077b6;
+            color: var(--uci-blue);
             font-weight: bold;
             margin-bottom: 10px;
             font-size: 14px;
@@ -474,7 +485,7 @@
             .page1 { break-after: page; }
             .page { padding: 0; }
             .submit-btn-container { display: none !important; }
-            .extra-summer-box { border: 1px solid #666; background-color: transparent; }
+            .extra-summer-box { border: 1px solid #1b3d6d !important; background-color: transparent; }
             table, th, td { border: 1px solid #1b3d6d !important; }
         }
 
@@ -547,6 +558,7 @@
                         </tr>
                         <tr>
                             <th><span class="zh-title">出生日期</span><span class="en-title">Date of Birth</span></th>
+                            <!-- 🎯 DOB 靠右且留 12px 防撞氣墊，絕不碰撞右邊框線！ -->
                             <td><input type="date" name="dob" class="text-input" required></td>
                             <th><span class="zh-title">就讀學校</span><span class="en-title">School</span></th>
                             <td><input type="text" name="school" class="text-input" placeholder=""></td>
@@ -610,7 +622,8 @@
                                     <label><input type="radio" name="discount_plan" value="1.0" checked onchange="calculateTuition()"> 常態收費原價 (Full Price)</label>
                                     <label><input type="radio" name="discount_plan" value="0.9" onchange="calculateTuition()"> 9 折優惠 (10% OFF)</label>
                                     <label><input type="radio" name="discount_plan" value="0.85" onchange="calculateTuition()"> 85 折優惠 (15% OFF)</label>
-                                    <label><input type="radio" name="discount_plan" value="0.8" onchange="calculateTuition()"> ✨ 老朋友 8 折 (20% OFF)</label>
+                                    <!-- 🎯 核心 UI 規範 6：去身分標籤，統一為「✨ 8 折優惠」 -->
+                                    <label><input type="radio" name="discount_plan" value="0.8" onchange="calculateTuition()"> ✨ 8 折優惠 (20% OFF)</label>
                                 </div>
                             </td>
                         </tr>
@@ -725,6 +738,7 @@
                     </div>
                     <div class="signature-row">
                         <span>日期 Date</span>
+                        <!-- 🎯 核心 UI 規範 5：審閱期攜回日期即為家長開頁當天日期 -->
                         <input type="date" name="parent_sig_date" id="parentSigDate" class="signature-input" required>
                     </div>
                 </div>
@@ -787,7 +801,25 @@ window.onload = function() {
     if (document.getElementById('parentSigDate')) document.getElementById('parentSigDate').value = today;
     if (document.getElementById('teacherSigDate')) document.getElementById('teacherSigDate').value = today;
 
-    calculateTuition();
+    // 🎯 解析 URL 參數 (供查看/印出完整A4報名表自動填寫)
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('auto_print')) {
+        urlParams.forEach(function(val, key) {
+            var field = document.querySelector('[name="' + key + '"]');
+            if (field) {
+                if (field.type === 'radio') {
+                    var r = document.querySelector('[name="' + key + '"][value="' + val + '"]');
+                    if (r) r.checked = true;
+                } else if (field.type !== 'file') {
+                    field.value = val;
+                }
+            }
+        });
+        calculateTuition();
+        setTimeout(function() { window.print(); }, 800);
+    } else {
+        calculateTuition();
+    }
 };
 
 function showImagePreview(input) {
@@ -835,14 +867,15 @@ function calculateTuition() {
             document.getElementById('sub_materials').value = adv.m;
             document.getElementById('sub_misc').value = adv.ms;
             
-            totalInput.value = "$" + finalTotal;
+            totalInput.value = "$" + finalTotal.toLocaleString();
             timeDisplay.innerHTML = adv.time;
 
-            var discountLabel = discountRate === 0.8 ? " <span style='color:red;'>(尊榮老朋友8折)</span>" : " (常態運算)";
+            // 🎯 核心 UI 規範 6：去身分標籤，統一提示為 (享8折特惠)
+            var discountLabel = discountRate === 0.8 ? " <span style='color:red;'>(享8折特惠)</span>" : " (常態運算)";
 
             calcPreview.innerHTML = "📚 <b>" + TARGET_COURSE + " (" + statusKey + "方案) 費用即時拆解明細" + discountLabel + "</b>：<br>" +
-                                    "基本學費總計：$" + adv.t + " | 固定教材費：$" + adv.m + " | 當期學雜費：$" + adv.ms + "<br>" +
-                                    "👉 <b>方案核定應繳總金額：NT$ " + finalTotal + " 元</b>";
+                                    "基本學費總計：$" + adv.t.toLocaleString() + " | 固定教材費：$" + adv.m.toLocaleString() + " | 當期學雜費：$" + adv.ms.toLocaleString() + "<br>" +
+                                    "👉 <b>方案核定應繳總金額：NT$ " + finalTotal.toLocaleString() + " 元</b>";
         }
     } catch (err) {
         console.error("Tuition calculation error resolved:", err);
@@ -878,12 +911,18 @@ document.getElementById('enrollmentForm').addEventListener('submit', function(e)
     
     var googleAppsScriptUrl = "https://script.google.com/macros/s/AKfycbxt07hF-qkXePULEBjuCpzdWnaeNWsTlQV7dRhch_iBwtVePOIJzldTAsR0LothoQ1l/exec";
     
-    // 🎯 雙重防護：使用 mode: 'no-cors' 避開瀏覽器跨域阻斷
-    fetch(googleAppsScriptUrl, {
+    // 🎯 雙重防護：使用 mode: 'no-cors' 與 Timeout Racers 防止頁面無響應
+    var fetchPromise = fetch(googleAppsScriptUrl, {
         method: 'POST',
         mode: 'no-cors',
         body: new URLSearchParams(new FormData(form))
-    })
+    });
+
+    var timeoutPromise = new Promise(function(resolve) {
+        setTimeout(function() { resolve("timeout"); }, 2500);
+    });
+
+    Promise.race([fetchPromise, timeoutPromise])
     .then(function() {
         alert("🎉 巴比美語：Advance C1 班線上報名與簽約成功！");
         form.submit(); 

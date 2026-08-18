@@ -51,7 +51,6 @@
             padding: 30px 40px;
         }
 
-        /* 🎯 抬頭最上方動態智慧生產字樣 */
         .dynamic-top-banner {
             font-size: 15px;
             font-weight: bold;
@@ -64,7 +63,6 @@
             display: inline-block;
         }
 
-        /* 經典頂部：左資料、右相片 */
         .header-section {
             display: flex;
             justify-content: space-between;
@@ -154,7 +152,6 @@
             border-radius: 6px 6px 0 0;
         }
 
-        /* 表格行動端包裹容器 */
         .table-responsive-wrapper {
             width: 100%;
             overflow-x: auto;
@@ -255,7 +252,6 @@
             box-sizing: border-box;
         }
 
-        /* 收據編號右邊填空欄字體縮小 */
         input[name="receipt_no"].text-input {
             font-size: 11.5px !important;
             padding: 4px 6px;
@@ -321,7 +317,6 @@
             line-height: 1.6;
         }
 
-        /* 第二頁條款美化升級區塊 */
         .terms-header {
             text-align: center;
             color: var(--uci-blue);
@@ -575,7 +570,6 @@
                             <th><span class="zh-title">與學生關係</span><span class="en-title">Relationship</span></th>
                             <td><input type="text" name="relation" class="text-input" placeholder="" required></td>
                             <th><span class="zh-title">聯絡電話</span><span class="en-title">Phone Number</span></th>
-                            <!-- 🎯 清空佔位文字，維持潔淨 UI -->
                             <td><input type="tel" name="phone" class="text-input" placeholder="" required></td>
                         </tr>
                         <tr>
@@ -598,20 +592,19 @@
                     <tbody>
                         <tr>
                             <th><span class="zh-title">就讀班別</span><span class="en-title">Course</span></th>
-                            <!-- 🎯 就讀班別：幾何上下左右完全置中結構 -->
                             <td colspan="2">
                                 <div id="courseLabelDisplay" class="static-course-display">未設定課程</div>
                             </td>
                             <th><span class="zh-title">標準上課時段</span><span class="en-title">Schedule</span></th>
-                            <!-- 🎯 上課時間：幾何上下左右完全置中結構 -->
                             <td colspan="2" id="timeDisplay" style="font-weight: bold; color: var(--uci-blue); padding: 0; height: 100%;">載入中...</td>
                         </tr>
                         <tr>
                             <th><span class="zh-title">學員身分狀態</span><span class="en-title">Student Status</span></th>
                             <td colspan="5">
                                 <div class="radio-group">
-                                    <label><input type="radio" name="student_status" value="新進" checked onchange="calculateTuition()"> <b>新進學生</b> (New Student - 內含固定完整教材)</label>
-                                    <label><input type="radio" name="student_status" value="晉升" onchange="calculateTuition()"> <b>晉升學生</b> (Returning Student - 續用原教材優惠)</label>
+                                    <!-- 🎯 Aegis 核心修正：去身分標籤，統一為「新生（需購買教材）」與「舊生（無需購買教材）」 -->
+                                    <label><input type="radio" name="student_status" value="新生" checked onchange="calculateTuition()"> <b>新生（需購買教材）</b> (New Student - 藍本Azar全套+筆記本 $2,040)</label>
+                                    <label><input type="radio" name="student_status" value="舊生" onchange="calculateTuition()"> <b>舊生（無需購買教材）</b> (Returning Student - 專屬寫作筆記本 $500)</label>
                                 </div>
                             </td>
                         </tr>
@@ -763,30 +756,20 @@
 </div>
 
 <script>
-// ===== 🎯 官方死數字防線數據庫 (C1最高殿堂專屬 - 徹底修剪括號贅字與導入雙層幾何置中結構) =====
-var advancedDeadValues = {
-    "新進": { 
-        // 🎯 核心修改：第一行 Advance C1 置中，第二行 青少年進階美語 置中，徹底移除 (新進學生) 贅字
-        labelHtml: "<div style='display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; height:100%; width:100%;'><div style='font-weight:800; color:var(--uci-blue); font-size:14px; line-height:1.2;'>Advance C1</div><div style='font-weight:700; color:var(--uci-blue); font-size:12px; line-height:1.2; margin-top:2px;'>青少年進階美語</div></div>",
-        labelRaw: "Advance C1 青少年進階美語 (新進學生)",
-        "1.0": 17140, "0.9": 15426, "0.85": 14569, "0.8": 13712, 
-        time: "<div style='display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; height:100%; width:100%;'><div style='font-weight:800; color:var(--uci-blue); font-size:13px; line-height:1.2;'><span class='no-orphan'>每週一晚上</span></div><div style='font-weight:700; color:var(--uci-blue); font-size:11.5px; line-height:1.2; margin-top:3px;'><span class='no-orphan'>7:00 PM - 9:00 PM</span></div></div>", 
-        t: 14450, m: 1840, ms: 850 
-    },
-    "晉升": { 
-        // 🎯 核心修改：第一行 Advance C1 置中，第二行 青少年進階美語 置中，徹底移除 (晉升學生) 贅字
-        labelHtml: "<div style='display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; height:100%; width:100%;'><div style='font-weight:800; color:var(--uci-blue); font-size:14px; line-height:1.2;'>Advance C1</div><div style='font-weight:700; color:var(--uci-blue); font-size:12px; line-height:1.2; margin-top:2px;'>青少年進階美語</div></div>",
-        labelRaw: "Advance C1 青少年進階美語 (晉升學生)",
-        "1.0": 15800, "0.9": 14220, "0.85": 13430, "0.8": 12640, 
-        time: "<div style='display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; height:100%; width:100%;'><div style='font-weight:800; color:var(--uci-blue); font-size:13px; line-height:1.2;'><span class='no-orphan'>每週一晚上</span></div><div style='font-weight:700; color:var(--uci-blue); font-size:11.5px; line-height:1.2; margin-top:3px;'><span class='no-orphan'>7:00 PM - 9:00 PM</span></div></div>", 
-        t: 14450, m: 500, ms: 850 
-    }
-};
-
-// ==========================================
-// ⭐ 核心鎖定：Advance C1 獨立網頁控制艙
-// ==========================================
+// =========================================================================
+// 🎯 Aegis 核心升級：全項目動態連動算式，與 DM / 契約書 100% 絕對一致！
+// 【應繳總金額 = Math.round((基本學費 $14,450 + 原價教材費 + 當期學雜費 $1,020) * 折扣率)】
+// 新生原價：14450 + 2040 + 1020 = $17,310 元
+// 舊生原價：14450 + 500 + 1020 = $15,970 元
+// =========================================================================
 var TARGET_COURSE = "Advance C1"; 
+
+var courseConfig = {
+    baseTuition: 14450, // 基本學費
+    rawMisc: 1020,      // 當期學雜費
+    materialsNew: 2040,  // 新生教材費 (藍本Azar全套 $1,840 + 筆記本 $200)
+    materialsOld: 500    // 舊生教材費 (專屬寫作筆記本 $500)
+};
 
 window.onload = function() {
     document.getElementById('course_name_hidden').value = TARGET_COURSE;
@@ -801,7 +784,6 @@ window.onload = function() {
     if (document.getElementById('parentSigDate')) document.getElementById('parentSigDate').value = today;
     if (document.getElementById('teacherSigDate')) document.getElementById('teacherSigDate').value = today;
 
-    // 🎯 解析 URL 參數 (供查看/印出完整A4報名表自動填寫)
     var urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('auto_print')) {
         urlParams.forEach(function(val, key) {
@@ -843,7 +825,8 @@ function showImagePreview(input) {
 function calculateTuition() {
     try {
         var statusRadio = document.querySelector('input[name="student_status"]:checked');
-        var statusKey = statusRadio ? statusRadio.value : "新進";
+        var isNewStudent = (!statusRadio || statusRadio.value === "新生");
+        var statusKey = isNewStudent ? "新生" : "舊生";
         
         var labelDisplay = document.getElementById('courseLabelDisplay');
         var timeDisplay = document.getElementById('timeDisplay');
@@ -854,29 +837,36 @@ function calculateTuition() {
         var activeRadio = document.querySelector('input[name="discount_plan"]:checked');
         if (activeRadio) discountRate = parseFloat(activeRadio.value);
 
-        if (advancedDeadValues[statusKey]) {
-            var adv = advancedDeadValues[statusKey];
-            
-            // 🎯 就讀班別渲染：帶入雙層幾何置中 HTML 結構
-            labelDisplay.innerHTML = adv.labelHtml;
-            
-            var finalTotal = adv[discountRate.toString()] || adv["1.0"];
-            
-            document.getElementById('class_time').value = "每週一晚上 7:00 PM - 9:00 PM";
-            document.getElementById('sub_tuition').value = adv.t;
-            document.getElementById('sub_materials').value = adv.m;
-            document.getElementById('sub_misc').value = adv.ms;
-            
-            totalInput.value = "$" + finalTotal.toLocaleString();
-            timeDisplay.innerHTML = adv.time;
+        var baseT = courseConfig.baseTuition;
+        var baseMisc = courseConfig.rawMisc;
+        var baseMat = isNewStudent ? courseConfig.materialsNew : courseConfig.materialsOld;
+        
+        // 全項目未折原價總額
+        var subTotal = baseT + baseMat + baseMisc;
+        
+        // 🎯 全項目一律連動乘上折扣率並四捨五入整數！
+        var finalTotal = Math.round(subTotal * discountRate);
 
-            // 🎯 核心 UI 規範 6：去身分標籤，統一提示為 (享8折特惠)
-            var discountLabel = discountRate === 0.8 ? " <span style='color:red;'>(享8折特惠)</span>" : " (常態運算)";
+        // 就讀班別二行化幾何居中渲染
+        labelDisplay.innerHTML = "<div style='display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; height:100%; width:100%;'><div style='font-weight:800; color:var(--uci-blue); font-size:14px; line-height:1.2;'>Advance C1</div><div style='font-weight:700; color:var(--uci-blue); font-size:12px; line-height:1.2; margin-top:2px;'>青少年進階美語</div></div>";
+        
+        // 標準上課時段幾何居中渲染
+        timeDisplay.innerHTML = "<div style='display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; height:100%; width:100%;'><div style='font-weight:800; color:var(--uci-blue); font-size:13px; line-height:1.2;'><span class='no-orphan'>每週一晚上</span></div><div style='font-weight:700; color:var(--uci-blue); font-size:11.5px; line-height:1.2; margin-top:3px;'><span class='no-orphan'>7:00 PM - 9:00 PM</span></div></div>";
 
-            calcPreview.innerHTML = "📚 <b>" + TARGET_COURSE + " (" + statusKey + "方案) 費用即時拆解明細" + discountLabel + "</b>：<br>" +
-                                    "基本學費總計：$" + adv.t.toLocaleString() + " | 固定教材費：$" + adv.m.toLocaleString() + " | 當期學雜費：$" + adv.ms.toLocaleString() + "<br>" +
-                                    "👉 <b>方案核定應繳總金額：NT$ " + finalTotal.toLocaleString() + " 元</b>";
-        }
+        document.getElementById('class_time').value = "每週一晚上 7:00 PM - 9:00 PM";
+        document.getElementById('sub_tuition').value = baseT;
+        document.getElementById('sub_materials').value = baseMat;
+        document.getElementById('sub_misc').value = baseMisc;
+        
+        totalInput.value = "$" + finalTotal.toLocaleString();
+
+        // 🎯 去身分標籤，優惠標示提示
+        var discountLabel = discountRate < 1 ? " <span style='color:red;'>(享 " + (discountRate*10).toFixed(1).replace('.0','') + " 折特惠)</span>" : " (常態原價)";
+
+        calcPreview.innerHTML = "📚 <b>" + TARGET_COURSE + " (" + statusKey + "方案) 費用即時拆解明細" + discountLabel + "</b>：<br>" +
+                                "基本學費：$" + baseT.toLocaleString() + " | 固定教材費：$" + baseMat.toLocaleString() + " | 當期學雜費：$" + baseMisc.toLocaleString() + "<br>" +
+                                "👉 <b>全項目連動核定應繳總金額：NT$ " + finalTotal.toLocaleString() + " 元</b>";
+
     } catch (err) {
         console.error("Tuition calculation error resolved:", err);
     }
@@ -911,7 +901,6 @@ document.getElementById('enrollmentForm').addEventListener('submit', function(e)
     
     var googleAppsScriptUrl = "https://script.google.com/macros/s/AKfycbxt07hF-qkXePULEBjuCpzdWnaeNWsTlQV7dRhch_iBwtVePOIJzldTAsR0LothoQ1l/exec";
     
-    // 🎯 雙重防護：使用 mode: 'no-cors' 與 Timeout Racers 防止頁面無響應
     var fetchPromise = fetch(googleAppsScriptUrl, {
         method: 'POST',
         mode: 'no-cors',
@@ -924,7 +913,7 @@ document.getElementById('enrollmentForm').addEventListener('submit', function(e)
 
     Promise.race([fetchPromise, timeoutPromise])
     .then(function() {
-        alert("🎉 巴比美語：Advance C1 班線上報名與簽約成功！");
+        alert("🎉 巴比美語：Advance C1 班線上報名成功！");
         form.submit(); 
     })
     .catch(function(error) {

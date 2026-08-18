@@ -159,7 +159,6 @@
             margin-bottom: 15px;
         }
 
-        /* 🔒 Aegis 核心 UI 規範 1：所有表格與內格線 100% 飽滿巴比深藍色實體化 */
         table {
             width: 100%;
             border-collapse: collapse !important;
@@ -224,7 +223,6 @@
             justify-content: flex-start;
         }
 
-        /* 🎯 Aegis 核心 UI 規範 5：選讀班別拆解兩行、去「班」字、100% 幾何精準居中 */
         .static-course-display {
             font-weight: bold;
             color: var(--uci-blue);
@@ -239,7 +237,7 @@
             text-align: center !important;
         }
 
-        /* 🎯 Aegis 核心 UI 規範 2：DOB 原生 Date Picker 靠右置中並預留 12px 安全氣墊防撞 */
+        /* 🎯 DOB 原生 Date Picker 靠右置中並預留 12px 安全氣墊防撞 */
         input[type="date"].text-input {
             display: block; 
             line-height: normal;
@@ -553,7 +551,6 @@
                         </tr>
                         <tr>
                             <th><span class="zh-title">出生日期</span><span class="en-title">Date of Birth</span></th>
-                            <!-- 🎯 DOB 靠右且留 12px 防撞氣墊，絕不碰撞右邊框線！ -->
                             <td><input type="date" name="dob" class="text-input" required></td>
                             <th><span class="zh-title">就讀學校</span><span class="en-title">School</span></th>
                             <td><input type="text" name="school" class="text-input" placeholder=""></td>
@@ -602,7 +599,6 @@
                             <th><span class="zh-title">學員身分狀態</span><span class="en-title">Student Status</span></th>
                             <td colspan="5">
                                 <div class="radio-group">
-                                    <!-- 🎯 Aegis 核心修正：去身分標籤，統一為「新生（需購買教材）」與「舊生（無需購買教材）」 -->
                                     <label><input type="radio" name="student_status" value="新生" checked onchange="calculateTuition()"> <b>新生（需購買教材）</b> (New Student - 藍本Azar全套+筆記本 $2,040)</label>
                                     <label><input type="radio" name="student_status" value="舊生" onchange="calculateTuition()"> <b>舊生（無需購買教材）</b> (Returning Student - 專屬寫作筆記本 $500)</label>
                                 </div>
@@ -615,7 +611,6 @@
                                     <label><input type="radio" name="discount_plan" value="1.0" checked onchange="calculateTuition()"> 常態收費原價 (Full Price)</label>
                                     <label><input type="radio" name="discount_plan" value="0.9" onchange="calculateTuition()"> 9 折優惠 (10% OFF)</label>
                                     <label><input type="radio" name="discount_plan" value="0.85" onchange="calculateTuition()"> 85 折優惠 (15% OFF)</label>
-                                    <!-- 🎯 核心 UI 規範 6：去身分標籤，統一為「✨ 8 折優惠」 -->
                                     <label><input type="radio" name="discount_plan" value="0.8" onchange="calculateTuition()"> ✨ 8 折優惠 (20% OFF)</label>
                                 </div>
                             </td>
@@ -731,7 +726,6 @@
                     </div>
                     <div class="signature-row">
                         <span>日期 Date</span>
-                        <!-- 🎯 核心 UI 規範 5：審閱期攜回日期即為家長開頁當天日期 -->
                         <input type="date" name="parent_sig_date" id="parentSigDate" class="signature-input" required>
                     </div>
                 </div>
@@ -756,19 +750,13 @@
 </div>
 
 <script>
-// =========================================================================
-// 🎯 Aegis 核心升級：全項目動態連動算式，與 DM / 契約書 100% 絕對一致！
-// 【應繳總金額 = Math.round((基本學費 $14,450 + 原價教材費 + 當期學雜費 $1,020) * 折扣率)】
-// 新生原價：14450 + 2040 + 1020 = $17,310 元
-// 舊生原價：14450 + 500 + 1020 = $15,970 元
-// =========================================================================
 var TARGET_COURSE = "Advance C1"; 
 
 var courseConfig = {
-    baseTuition: 14450, // 基本學費
-    rawMisc: 1020,      // 當期學雜費
-    materialsNew: 2040,  // 新生教材費 (藍本Azar全套 $1,840 + 筆記本 $200)
-    materialsOld: 500    // 舊生教材費 (專屬寫作筆記本 $500)
+    baseTuition: 14450,
+    rawMisc: 1020,
+    materialsNew: 2040,
+    materialsOld: 500
 };
 
 window.onload = function() {
@@ -779,7 +767,6 @@ window.onload = function() {
     document.getElementById('subTitleDisplay').innerHTML = "Bobby English School - " + TARGET_COURSE + " Enrollment Form";
     document.getElementById('dynamicBannerDisplay').innerHTML = TARGET_COURSE + " 專屬智慧報名系統";
     
-    // 🎯 自動時光天線：開啟頁面自動帶入當天日期
     var today = new Date().toISOString().split('T')[0];
     if (document.getElementById('parentSigDate')) document.getElementById('parentSigDate').value = today;
     if (document.getElementById('teacherSigDate')) document.getElementById('teacherSigDate').value = today;
@@ -841,16 +828,10 @@ function calculateTuition() {
         var baseMisc = courseConfig.rawMisc;
         var baseMat = isNewStudent ? courseConfig.materialsNew : courseConfig.materialsOld;
         
-        // 全項目未折原價總額
         var subTotal = baseT + baseMat + baseMisc;
-        
-        // 🎯 全項目一律連動乘上折扣率並四捨五入整數！
         var finalTotal = Math.round(subTotal * discountRate);
 
-        // 就讀班別二行化幾何居中渲染
         labelDisplay.innerHTML = "<div style='display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; height:100%; width:100%;'><div style='font-weight:800; color:var(--uci-blue); font-size:14px; line-height:1.2;'>Advance C1</div><div style='font-weight:700; color:var(--uci-blue); font-size:12px; line-height:1.2; margin-top:2px;'>青少年進階美語</div></div>";
-        
-        // 標準上課時段幾何居中渲染
         timeDisplay.innerHTML = "<div style='display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; height:100%; width:100%;'><div style='font-weight:800; color:var(--uci-blue); font-size:13px; line-height:1.2;'><span class='no-orphan'>每週一晚上</span></div><div style='font-weight:700; color:var(--uci-blue); font-size:11.5px; line-height:1.2; margin-top:3px;'><span class='no-orphan'>7:00 PM - 9:00 PM</span></div></div>";
 
         document.getElementById('class_time').value = "每週一晚上 7:00 PM - 9:00 PM";
@@ -860,7 +841,6 @@ function calculateTuition() {
         
         totalInput.value = "$" + finalTotal.toLocaleString();
 
-        // 🎯 去身分標籤，優惠標示提示
         var discountLabel = discountRate < 1 ? " <span style='color:red;'>(享 " + (discountRate*10).toFixed(1).replace('.0','') + " 折特惠)</span>" : " (常態原價)";
 
         calcPreview.innerHTML = "📚 <b>" + TARGET_COURSE + " (" + statusKey + "方案) 費用即時拆解明細" + discountLabel + "</b>：<br>" +
@@ -872,7 +852,7 @@ function calculateTuition() {
     }
 }
 
-// 🎯 核心補強：綁定 Form 提交事件與 Google Apps Script 雲端同步腳本
+// 🎯 核心對接：植入 Joy 主任專屬 GAS 網頁應用程式 URL
 document.getElementById('enrollmentForm').addEventListener('submit', function(e) {
     e.preventDefault(); 
     var form = this;
@@ -899,7 +879,8 @@ document.getElementById('enrollmentForm').addEventListener('submit', function(e)
     params.append('auto_print', 'true');
     document.getElementById('printLinkInput').value = baseUrl + '?' + params.toString();
     
-    var googleAppsScriptUrl = "https://script.google.com/macros/s/AKfycbxt07hF-qkXePULEBjuCpzdWnaeNWsTlQV7dRhch_iBwtVePOIJzldTAsR0LothoQ1l/exec";
+    // ⚡ Aegis 精準植入：Joy 主任專屬 GAS 網頁應用程式 URL
+    var googleAppsScriptUrl = "https://script.google.com/macros/s/AKfycbzEuQxLVm_1BgBZNAAO2FUdZ6y385oTV02aEgnCIkN6756PCGZCr3h1Iypqpe0LQxPXsw/exec";
     
     var fetchPromise = fetch(googleAppsScriptUrl, {
         method: 'POST',
@@ -913,7 +894,7 @@ document.getElementById('enrollmentForm').addEventListener('submit', function(e)
 
     Promise.race([fetchPromise, timeoutPromise])
     .then(function() {
-        alert("🎉 巴比美語：Advance C1 班線上報名成功！");
+        alert("🎉 巴比美語：Advance C1 班線上報名成功！已同步至雲端試算表！");
         form.submit(); 
     })
     .catch(function(error) {

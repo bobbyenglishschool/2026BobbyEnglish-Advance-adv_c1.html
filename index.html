@@ -404,6 +404,8 @@ if (row[5]) {
     } else {
         formattedDob = rawDob;
     }
+    document.getElementById('dob').value = formattedDob;
+}
                 if (row[6]) document.getElementById('school_name').value = row[6];
                 if (row[7]) document.getElementById('grade_level').value = row[7];
                 if (row[8]) document.getElementById('parent_name').value = row[8];

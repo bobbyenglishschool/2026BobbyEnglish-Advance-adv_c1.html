@@ -92,7 +92,7 @@
             tr { display: table-row !important; }
         }
 
-        /* 📱 手機響應式排版 (解鎖高度與邊界防護) */
+        /* 📱 手機響應式排版 (卡片化與防邊界擠壓) */
         @media (max-width: 768px) {
             body { padding: 6px 0; }
             .page { padding: 16px 12px; }
@@ -209,7 +209,7 @@
                             <th><span class="zh-title">年級</span><span class="en-title">Grade</span></th>
                             <td>
                                 <div style="display: flex; align-items: center; justify-content: flex-start; padding: 0 4px; height: 100%; white-space: nowrap;">
-                                    <input type="text" id="grade_level" name="grade_level" style="border: none; border-bottom: 1.5px solid #1b3d6d; width: 45px; text-align: center; margin: 0 2px; background: transparent; outline: none; font-weight: bold;" placeholder="如：7"> 年級
+                                    <input type="text" id="grade_level" name="grade_level" style="border: none; border-bottom: 1.5px solid #1b3d6d; width: 45px; text-align: center; margin: 0 2px; background: transparent; outline: none; font-weight: bold;" placeholder="如：9"> 年級
                                 </div>
                             </td>
                         </tr>
@@ -247,14 +247,14 @@
                             <th><span class="zh-title">標準上課時段</span><span class="en-title">Schedule</span></th>
                             <td colspan="2" id="timeDisplay" style="padding: 0; text-align: center; vertical-align: middle;">載入中...</td>
                         </tr>
-                        <!-- 🎯 Advance 系列專屬：保留「學員身分標籤」動態計費切換 (C1 班別常態全開) -->
+                        <!-- 🎯 Advance 系列專屬：學員身分標籤常態開放連動計費 -->
                         <tr>
                             <th><span class="zh-title">學員身分標籤</span><span class="en-title">Student Identity</span></th>
                             <td colspan="5">
                                 <div class="radio-group">
-                                    <label><input type="radio" name="student_identity" value="new" checked onchange="calculateTuition()"> 新生（需購買專屬教材）</label>
-                                    <label><input type="radio" name="student_identity" value="old_with_mat" onchange="calculateTuition()"> 舊生（需購買當期新教材）</label>
-                                    <label><input type="radio" name="student_identity" value="old_no_mat" onchange="calculateTuition()"> 舊生（延用舊教材／免購教材）</label>
+                                    <label><input type="radio" name="student_identity" value="new" checked onchange="calculateTuition()"> 新生（需購買專屬教材 $1,340）</label>
+                                    <label><input type="radio" name="student_identity" value="old_with_mat" onchange="calculateTuition()"> 舊生（需購買當期新教材 $1,340）</label>
+                                    <label><input type="radio" name="student_identity" value="old_no_mat" onchange="calculateTuition()"> 舊生（延用舊教材／免購教材 $0）</label>
                                 </div>
                             </td>
                         </tr>
@@ -389,12 +389,16 @@
 </div>
 
 <script>
+// 🎯 正確校正：對齊廣告頁真實課程資訊 (全期 17 堂，學費 $14,450，藍本Azar教材 $1,340，專屬筆記本+雜費 $1,020)
 var courseDatabase = {
     "Advance C1": { 
         id: "Advance C1",
-        zhName: "高術思維與實戰活用", 
-        time: "<div style='display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding: 4px 0;'><div style='font-weight:800; color:var(--uci-blue); font-size:13px; line-height:1.2;'><span class='no-orphan'>每週二、四</span></div><div style='font-weight:700; color:var(--uci-blue); font-size:11.5px; line-height:1.2; margin-top:3px;'><span class='no-orphan'>4:30 PM - 6:30 PM (2小時/堂)</span></div></div>", 
-        lessons: 38, price: 770, materials: 3520, misc: 60 
+        zhName: "青少年觀點表達與結構寫作班", 
+        time: "<div style='display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding: 4px 0;'><div style='font-weight:800; color:var(--uci-blue); font-size:13px; line-height:1.2;'><span class='no-orphan'>每週一晚上</span></div><div style='font-weight:700; color:var(--uci-blue); font-size:11.5px; line-height:1.2; margin-top:3px;'><span class='no-orphan'>7:00 PM - 9:00 PM (2小時/堂)</span></div></div>", 
+        lessons: 17, 
+        tuitionBase: 14450, // 核心學費
+        materialsBase: 1340, // 藍本 Azar 全套
+        miscBase: 1020       // 專屬寫作筆記本 $500 + 學雜費 $520 = $1,020
     }
 };
 
@@ -416,6 +420,7 @@ function updatePaymentMethodValue() {
     }
 }
 
+// 🛡️ 終極防彈本地時區轉換與 Row-ID 預覽列印系統
 function loadRowDataIfPresent() {
     var urlParams = new URLSearchParams(window.location.search);
     var rowIndex = urlParams.get('row');
@@ -440,16 +445,20 @@ function loadRowDataIfPresent() {
                     gRadios.forEach(function(r){ if(r.value === row[4]) r.checked = true; });
                 }
 
-                // 🛡️ 終極防彈本地時區生日還原器（完美不扣天數）
+                // 🛡️ 生日本地時區轉換器 (抓 YYYY-MM-DD 純文字)
                 if (row[5]) {
                     var rawDob = row[5].toString();
                     var formattedDob = "";
-                    var match = rawDob.match(/(\d{4})[-/](\d{1,2})[-/](\d{1,2})/);
-                    if (match) {
-                        var y = match[1];
-                        var m = match[2].padStart(2, '0');
-                        var d = match[3].padStart(2, '0');
-                        formattedDob = y + "/" + m + "/" + d;
+                    if (rawDob.indexOf('T') !== -1) {
+                        formattedDob = rawDob.split('T')[0];
+                    } else if (rawDob.indexOf('/') !== -1) {
+                        var parts = rawDob.split('/');
+                        if (parts.length === 3) {
+                            var y = parts[0];
+                            var m = parts[1].padStart(2, '0');
+                            var d = parts[2].padStart(2, '0');
+                            formattedDob = y + "-" + m + "-" + d;
+                        }
                     } else {
                         formattedDob = rawDob;
                     }
@@ -566,7 +575,7 @@ function isCanvasBlank(canvas) {
     return !pixelBuffer.some(function(color) { return color !== 0; });
 }
 
-// 🎯 Advance C1 專屬計費邏輯：結合「學員身分標籤」與「折扣率」
+// 🎯 Advance C1 專屬計費大腦：結合「學員身分標籤」與「折扣率」
 function calculateTuition() {
     try {
         var courseKey = TARGET_COURSE;
@@ -578,7 +587,7 @@ function calculateTuition() {
         if (courseDatabase[courseKey]) {
             var course = courseDatabase[courseKey];
             labelDisplay.innerHTML = "<div class='course-id'>" + course.id + "</div><div class='course-zh'>" + course.zhName + "</div>";
-            document.getElementById('class_time').value = "每週二四 4:30-6:30 PM";
+            document.getElementById('class_time').value = "每週一晚上 7:00-9:00 PM";
             
             // 1. 取得折扣率
             var discountRate = 1.0;
@@ -595,9 +604,9 @@ function calculateTuition() {
                 identity = activeIdentityRadio.value;
             }
 
-            var tuitionTotal = course.price * course.lessons; // 770 * 38 = 29,260
-            var materialsTotal = (identity === 'old_no_mat') ? 0 : course.materials; // 新生/舊生含教材=$3,520，舊生免教材=$0
-            var miscTotal = course.misc * course.lessons;     // 60 * 38 = 2,280
+            var tuitionTotal = course.tuitionBase; // $14,450
+            var materialsTotal = (identity === 'old_no_mat') ? 0 : course.materialsBase; // 新生/舊生含教材=$1,340，舊生免教材=$0
+            var miscTotal = course.miscBase;       // $1,020 (專屬筆記本 $500 + 學雜費 $520)
             
             var subTotal = tuitionTotal + materialsTotal + miscTotal;
             var finalTotal = Math.round(subTotal * discountRate);
@@ -615,9 +624,9 @@ function calculateTuition() {
             var idText = (identity === 'new') ? "新生" : (identity === 'old_with_mat' ? "舊生(含教材)" : "舊生(免購教材)");
 
             calcPreview.innerHTML = "📚 <b>" + courseKey + " 費用明細與折扣說明（" + idText + "）</b>：<br>" +
-                                    "基本學費：$" + course.price + " × " + course.lessons + "堂 = $" + tuitionTotal.toLocaleString() + " | " +
+                                    "基本學費：$" + tuitionTotal.toLocaleString() + " (17堂) | " +
                                     "教材費：$" + materialsTotal.toLocaleString() + " | " +
-                                    "學雜費：$" + course.misc + " × " + course.lessons + "堂 = $" + miscTotal.toLocaleString() + "<br>" +
+                                    "專屬筆記本與學雜費：$" + miscTotal.toLocaleString() + "<br>" +
                                     "👉 <b>全項目（學費＋教材＋雜費）" + discountText + "後實際總計：NT$ " + finalTotal.toLocaleString() + " 元</b>";
         }
     } catch (err) { console.error("Tuition error:", err); }

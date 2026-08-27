@@ -247,7 +247,7 @@
                             <th><span class="zh-title">標準上課時段</span><span class="en-title">Schedule</span></th>
                             <td colspan="2" id="timeDisplay" style="padding: 0; text-align: center; vertical-align: middle;">載入中...</td>
                         </tr>
-                        <!-- 🎯 Advance 系列專屬：保留「學員身分標籤」動態計費切換 -->
+                        <!-- 🎯 Advance 系列專屬：保留「學員身分標籤」動態計費切換 (C1 班別常態全開) -->
                         <tr>
                             <th><span class="zh-title">學員身分標籤</span><span class="en-title">Student Identity</span></th>
                             <td colspan="5">
@@ -440,23 +440,16 @@ function loadRowDataIfPresent() {
                     gRadios.forEach(function(r){ if(r.value === row[4]) r.checked = true; });
                 }
 
+                // 🛡️ 終極防彈本地時區生日還原器（完美不扣天數）
                 if (row[5]) {
                     var rawDob = row[5].toString();
                     var formattedDob = "";
-                    if (rawDob.indexOf('T') !== -1) {
-                        var dObj = new Date(rawDob);
-                        var y = dObj.getFullYear();
-                        var m = String(dObj.getMonth() + 1).padStart(2, '0');
-                        var d = String(dObj.getDate()).padStart(2, '0');
-                        formattedDob = y + "-" + m + "-" + d;
-                    } else if (rawDob.indexOf('/') !== -1) {
-                        var parts = rawDob.split('/');
-                        if (parts.length === 3) {
-                            var y = parts[0];
-                            var m = parts[1].padStart(2, '0');
-                            var d = parts[2].padStart(2, '0');
-                            formattedDob = y + "-" + m + "-" + d;
-                        }
+                    var match = rawDob.match(/(\d{4})[-/](\d{1,2})[-/](\d{1,2})/);
+                    if (match) {
+                        var y = match[1];
+                        var m = match[2].padStart(2, '0');
+                        var d = match[3].padStart(2, '0');
+                        formattedDob = y + "/" + m + "/" + d;
                     } else {
                         formattedDob = rawDob;
                     }

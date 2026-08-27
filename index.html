@@ -3,715 +3,685 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Advance C1: Global Perspectives & Structural Literacy | 私立巴比美語短期補習班</title>
+    <title>私立巴比美語短期補習班 | 專屬學員報名系統 (Advance C1)</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --uci-blue: #1b3d6d; 
-            --uci-blue-dark: #102a4d;
-            --uci-blue-hover: #142f54;
-            --uci-gold: #fecc07; 
+            --uci-blue: #1b3d6d;
+            --uci-gold: #fecc07;
             --soft-red: #e74c3c;
             --card-bg: #f8fafc;
             --border-color: #1b3d6d;
-            --line-color: #cbd5e1;
             --text-main: #1e293b;
             --text-sub: #475569;
         }
         
-        * {
-            box-shadow: none;
-            box-sizing: border-box;
-            font-family: 'Inter', 'Helvetica Neue', Arial, 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+        * { box-shadow: none; box-sizing: border-box; font-family: 'Inter', 'Noto Sans TC', sans-serif; -webkit-font-smoothing: antialiased; }
+        body { background-color: #f1f5f9; margin: 0; padding: 20px 0; color: var(--text-main); line-height: 1.6; }
+
+        /* 🎨 提示文淡化屬性 (防範家長誤以為已填寫) */
+        ::placeholder {
+            color: #94a3b8 !important;
+            opacity: 0.75 !important;
+            font-style: italic !important;
+            font-weight: 400 !important;
         }
+        ::-webkit-input-placeholder { color: #94a3b8 !important; opacity: 0.75 !important; font-style: italic !important; font-weight: 400 !important; }
+        :-ms-input-placeholder { color: #94a3b8 !important; opacity: 0.75 !important; font-style: italic !important; font-weight: 400 !important; }
 
-        body {
-            background-color: #f1f5f9;
-            margin: 0;
-            padding: 20px 0;
-            color: var(--text-main);
-            line-height: 1.55;
-        }
-
-        .ad-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .page { 
-            position: relative;
-            background: #fff;
-            padding: 30px 35px 20px 35px;
-            overflow: visible;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 980px;
-            border-bottom: 2px dashed #e2e8f0;
-        }
-
-        .page:last-child {
-            border-bottom: none;
-        }
-
-        .page-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .header-flex-box {
-            display: flex;
-            align-items: center; 
-            justify-content: space-between;
-            gap: 15px;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, var(--uci-blue) 0%, var(--uci-blue-dark) 100%); 
-            padding: 18px 20px;
-            border-radius: 10px;
-            border-bottom: 4.5px solid var(--uci-gold);
-            min-height: 140px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .title-group {
-            flex: 1;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center; 
-        }
-
-        .title-group h1 {
-            margin: 0;
-            padding: 0;
-        }
-
-        .title-group h1 span.en-main-title { 
-            display: block;
-            line-height: 1.25;
-            color: #ffffff;
-            margin: 0 0 6px 0;
-            padding: 0;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-            font-size: 19.5px;
-            font-weight: 800;
-        }
-
-        .title-group h1 span.en-main-title span.zh-title-tag {
-            font-size: 15px;
-            font-weight: 500;
-            color: #e2e8f0;
-            margin-left: 4px;
-        }
-
-        .title-group h1 span.zh-sub-title {
-            display: block;
-            font-size: 15.5px;
-            font-weight: 700;
-            line-height: 1.35;
-            color: var(--uci-gold);
-            margin: 6px 0 8px 0;
-            padding: 0;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-            white-space: nowrap;
-        }
-
-        .title-group h1 span.zh-sub-title span.en-sub-tag {
-            font-size: 11px;
-            font-weight: 400;
-            font-style: italic;
-            opacity: 0.95;
-            color: #fef08a;
-        }
-
-        .title-group h2 {
-            font-size: 11.5px;
-            font-weight: 700;
-            color: #ffffff;
-            opacity: 0.9;
-            line-height: 1.25;
-            margin: 0;
-            padding: 0;
-            letter-spacing: 0.8px;
-        }
-
-        .logo-img {
-            width: 100%;
-            max-width: 118px;
-            height: auto;
-            object-fit: contain;
-            flex-shrink: 0;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-        }
-
-        h2.section-heading { 
-            color: var(--uci-blue); 
-            border-bottom: 2px solid var(--uci-blue); 
-            padding-bottom: 4px; 
-            margin-top: 14px; 
-            margin-bottom: 10px; 
-            font-size: 15px;
-            font-weight: 800;
-            letter-spacing: 0.3px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .description-scroll-box {
-            background-color: var(--card-bg);
-            border: 1px solid #1b3d6d !important;
-            border-left: 4px solid var(--uci-blue) !important;
-            padding: 14px 18px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            max-height: 270px; 
-            overflow-y: auto;  
-            position: relative;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .description-scroll-box::-webkit-scrollbar { width: 5px; }
-        .description-scroll-box::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 4px; }
-        .description-scroll-box::-webkit-scrollbar-thumb { background: var(--uci-blue); border-radius: 4px; }
-
-        p.paragraph-desc {
-            font-size: 13.5px;
-            font-weight: 500;
-            margin: 0 0 8px 0;
-            text-align: justify;
-            color: var(--text-main);
-            line-height: 1.6;
-            word-break: break-word;
-        }
-
-        p.paragraph-desc:last-child { margin-bottom: 0; }
-
-        .light-en-text {
-            font-size: 11px;
-            font-weight: 400; 
-            color: var(--text-sub);
-            font-style: normal;
-            display: block;
-            margin-top: 4px;
-            line-height: 1.45;
-        }
-
-        .pyp-badge {
-            background-color: #fef2f2;
-            border: 1px solid #fecaca;
-            padding: 10px 16px;
-            margin: 10px 0;
-            border-radius: 6px;
-            text-align: center; 
-            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-        }
-
-        .pyp-badge p {
-            margin: 0;
-            font-size: 13.5px;
-            color: var(--soft-red);
-            line-height: 1.45;
-            font-weight: 700;
-        }
-
-        .no-orphan {
-            display: inline-block;
-            white-space: nowrap;
-        }
-
-        .table-container {
-            width: 100%;
-            margin-top: 8px;
-            margin-bottom: 10px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        table.ad-table { 
-            width: 100%; 
-            border-collapse: collapse !important;
-            margin-bottom: 0;
-            font-size: 12px;
-            table-layout: fixed;
-            word-wrap: break-word;
-            border: 1px solid #1b3d6d !important;
-            border-radius: 0px;
-            overflow: hidden;
-            background-color: #ffffff;
-        }
-
-        table.ad-table th, table.ad-table td { 
-            border: 1px solid #1b3d6d !important;
-            padding: 9px 12px; 
-            vertical-align: middle; 
-            text-align: left; 
-            line-height: 1.5;
-            word-break: break-word;
-        }
-
-        table.ad-table th { 
-            background-color: #f0f4f8; 
-            color: var(--uci-blue); 
-            text-align: center; 
-            font-weight: 700;
-            font-size: 13px;
-        }
-
-        .center-text { text-align: center !important; font-weight: 700; color: var(--uci-blue); }
-        .left-align { text-align: left !important; }
-
-        ul.list-style { padding-left: 18px; margin-bottom: 6px; margin-top: 4px; }
-        ul.list-style li { margin-bottom: 8px; font-size: 13px; color: var(--text-main); line-height: 1.55; text-align: justify; word-break: break-word; }
-
-        .info-card {
-            background-color: var(--card-bg);
-            border: 1px solid #1b3d6d !important;
-            padding: 12px 16px;
-            border-radius: 6px;
-            margin-top: 6px;
-            margin-bottom: 10px;
-        }
-
-        .note { 
-            font-size: 10.5px; 
-            color: var(--text-sub); 
-            font-weight: 400; 
-            margin-top: 2px; 
-            display: block; 
-        }
-
-        .eng-text { 
-            color: var(--text-sub); 
-            display: block; 
-            margin-top: 2px; 
-            font-size: 11px; 
-            font-weight: 400; 
-            line-height: 1.4;
-            text-align: justify;
-            word-break: break-word;
-        }
-
-        .note-lines-container {
-            margin-top: 8px;
-            margin-bottom: 6px;
-            background: transparent;
-            page-break-inside: avoid;
-        }
-
-        .note-title {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--uci-blue);
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .note-textarea-6lines {
-            width: 100%;
-            height: 140px;
-            border: none;
-            background: transparent;
-            background-image: repeating-linear-gradient(
-                transparent,
-                transparent 27px,
-                var(--line-color) 27px,
-                var(--line-color) 28px
-            );
-            line-height: 28px;
-            font-size: 12px;
-            color: var(--text-main);
-            resize: none;
-            outline: none;
-            padding: 0 4px;
-            font-family: inherit;
-        }
-
-        .footer-image-box {
-            width: calc(100% + 80px);
-            margin-left: -40px; 
-            margin-top: 8px;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-        }
-
-        .page-footer-img {
-            width: 100%; 
-            max-width: 100%; 
-            max-height: 145px; 
-            object-fit: contain;
-            display: block;
-            margin: 0 auto;
-            padding: 0;
-            border: none;
-        }
-
-        .last-page-footer-box {
-            width: 100%;
-            margin: 8px auto 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 10px; 
-            page-break-inside: avoid;
-        }
-
-        .join-us-btn-container {
-            text-align: center;
-            width: 100%;
-            margin-bottom: 4px;
-        }
-
-        .cta-join-us-img {
-            width: 100%;
-            max-width: 145px;
-            height: auto;
-            cursor: pointer;
-            transition: transform 0.25s ease, filter 0.25s ease;
-            margin: 0 auto;
-            display: block;
-            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.12));
-        }
-
-        .cta-join-us-img:hover {
-            transform: translateY(-2px) scale(1.04);
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
-        }
+        .page-container { max-width: 800px; margin: 0 auto; background: #fff; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border-radius: 12px; overflow: hidden; width: 100%; position: relative; }
+        .page { padding: 30px 40px; }
+        .dynamic-top-banner { font-size: 15px; font-weight: 800; color: var(--uci-blue); background-color: #e6f0fa; padding: 6px 14px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid var(--uci-gold); display: inline-block; word-break: keep-all; }
+        .header-section { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; border-bottom: 3px solid var(--uci-blue); padding-bottom: 15px; }
+        .title-area { flex: 1; padding-right: 20px; min-width: 0; }
+        .main-title { color: var(--uci-blue); font-size: 21px; margin: 0 0 5px 0; font-weight: 900; letter-spacing: 0.3px; word-break: keep-all; }
+        .sub-title { color: var(--uci-blue); font-size: 13.5px; margin: 0 0 15px 0; font-weight: 600; opacity: 0.9; font-family: 'Inter', sans-serif; word-break: keep-all; }
+        .contact-info { font-size: 11.5px; color: var(--text-sub); line-height: 1.6; }
+        .contact-info p { margin: 2px 0; font-weight: 500; word-break: keep-all; }
+        .contact-info strong { font-weight: 800; color: var(--uci-blue); }
+        .photo-box { width: 2in; height: 2in; border: 2px solid var(--uci-blue) !important; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; font-weight: 700; color: var(--uci-blue); flex-shrink: 0; background-color: #fafafa; cursor: pointer; position: relative; overflow: hidden; border-radius: 6px; transition: background-color 0.2s; }
+        .photo-box:hover { background-color: rgba(27, 61, 109, 0.05); }
+        .photo-file-input { position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0; cursor: pointer; }
+        .preview-img { width: 100%; height: 100%; object-fit: cover; }
+        .section-title { background-color: var(--uci-blue); color: #fff; padding: 8px 14px; font-size: 15px; font-weight: 800; margin: 20px 0 10px 0; display: inline-block; border-radius: 6px 6px 0 0; letter-spacing: 0.4px; word-break: keep-all; }
+        .table-responsive-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 15px; }
+        table { width: 100%; border-collapse: collapse !important; font-size: 13px; table-layout: fixed; border: 1px solid #1b3d6d !important; background-color: #ffffff; }
+        th, td { border: 1px solid #1b3d6d !important; padding: 6px 8px; vertical-align: middle; word-break: break-word; }
+        th { background-color: #f0f4f8; color: var(--uci-blue); text-align: center; width: 18%; line-height: 1.4; font-weight: 700; padding: 6px 4px; }
+        th span.zh-title { font-size: 13.5px; display: block; margin-bottom: 2px; font-weight: 800; letter-spacing: 0.3px; word-break: keep-all; }
+        th span.en-title { font-size: 10.5px; display: block; font-weight: 500; opacity: 0.85; font-family: 'Inter', sans-serif; word-break: keep-all; }
+        td { height: 45px; position: relative; text-align: left; }
+        .text-input, .static-course-display { border: none; background: transparent; width: 100%; height: 100%; outline: none; font-size: 13.5px; color: inherit; padding: 4px 8px; display: flex; align-items: center; justify-content: flex-start; }
+        .static-course-display { font-weight: bold; color: var(--uci-blue); font-size: 13.5px; display: flex; flex-direction: column; align-items: center !important; justify-content: center !important; text-align: center !important; line-height: 1.3; padding: 4px 0; }
+        .static-course-display .course-id { font-size: 14.5px; font-weight: 800; word-break: keep-all; }
+        .static-course-display .course-zh { font-size: 12.5px; font-weight: 700; margin-top: 3px; word-break: keep-all; }
+        .radio-group { display: flex; align-items: center; justify-content: flex-start; gap: 12px; padding-left: 4px; height: 100%; flex-wrap: wrap; }
+        .radio-group label { display: flex; align-items: center; gap: 4px; cursor: pointer; white-space: nowrap; }
+        .payment-inline-row { display: flex; align-items: center; justify-content: flex-start; gap: 8px; padding-left: 4px; padding-right: 12px; height: 100%; width: 100%; flex-wrap: wrap; }
+        .payment-inline-row label { display: flex; align-items: center; gap: 4px; cursor: pointer; white-space: nowrap; }
+        .offer-box { background-color: rgba(254, 204, 7, 0.18); border: 1.5px dashed var(--uci-gold); padding: 12px 16px; margin: 15px 0; border-radius: 6px; font-weight: 800; color: #856400; text-align: center; font-size: 14px; line-height: 1.6; word-break: keep-all; }
+        .terms-header { text-align: center; color: var(--uci-blue); border-bottom: 2.5px solid var(--uci-blue); padding-bottom: 12px; margin-bottom: 22px; font-size: 19px; font-weight: 800; }
+        .privacy-statement { background-color: #f0f4f8; padding: 14px 18px; border-left: 4.5px solid var(--uci-blue); font-size: 13.5px; margin-bottom: 22px; border-radius: 6px; border: 1px solid #1b3d6d !important; text-align: justify; line-height: 1.65; font-weight: 500; }
+        .terms-list { font-size: 13.5px; color: var(--text-main); text-align: justify; }
+        .terms-list .term-item { margin-bottom: 18px; line-height: 1.68; background: #ffffff; padding: 14px 18px; border-radius: 6px; border: 1px solid #1b3d6d !important; font-weight: 500; }
+        .terms-list strong { color: var(--uci-blue); font-size: 14px; font-weight: 800; }
+        .terms-list span { font-family: 'Inter', sans-serif; font-size: 11.5px; color: var(--text-sub); display: block; margin-top: 4px; font-weight: 400; line-height: 1.5; }
+        .signature-section { display: flex; justify-content: space-between; margin-top: 25px; gap: 20px; }
+        .signature-box { flex: 1; width: 50%; border: 1.5px solid var(--uci-blue) !important; padding: 14px; border-radius: 8px; background-color: #fafbfc; }
+        .sig-title { color: var(--uci-blue); font-weight: 700; font-size: 13px; margin-bottom: 6px; display: flex; justify-content: space-between; }
+        .canvas-container { position: relative; width: 100%; height: 120px; background: #fff; border: 1px dashed var(--uci-blue); border-radius: 6px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        canvas.sig-pad { width: 100%; height: 100%; cursor: crosshair; touch-action: none; display: block; }
+        .sig-preview-img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .btn-clear-sig { background: #f1f5f9; border: 1px solid #cbd5e1; color: var(--text-sub); font-size: 11px; padding: 2px 8px; border-radius: 4px; cursor: pointer; }
+        .submit-btn-container { margin-top: 30px; text-align: center; }
+        .submit-btn { background-color: var(--uci-gold); color: var(--uci-blue); border: none; padding: 15px 40px; font-size: 17px; font-weight: 800; border-radius: 30px; cursor: pointer; width: 100%; max-width: 400px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        #loadingOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.92); display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; color: var(--uci-blue); font-weight: 800; font-size: 18px; }
+        #successScreen { display: none; padding: 60px 30px; text-align: center; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         @media print {
-            body { background-color: #fff; padding: 0; margin: 0; }
-            .ad-container { max-width: 100%; width: 100%; box-shadow: none; border-radius: 0; }
-            .page {
-                width: 210mm;      
-                height: 296mm;      
-                min-height: 296mm;
-                max-height: 296mm;
-                page-break-after: always; 
-                page-break-inside: avoid;
-                padding: 15mm 18mm 0 18mm !important; 
-                margin: 0;
-                border-bottom: none;
-                overflow: hidden !important;
-            }
-            .page:last-child { page-break-after: avoid; }
-            .description-scroll-box { max-height: none !important; overflow-y: visible !important; border: none !important; padding: 0 !important; }
-            .header-flex-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            table.ad-table th, table.ad-table td { 
-                border: 1px solid #1b3d6d !important; 
-                -webkit-print-color-adjust: exact; 
-                print-color-adjust: exact; 
-            }
-            table.ad-table th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .footer-image-box { width: calc(100% + 36mm) !important; margin-left: -18mm !important; }
-            .last-page-footer-box { width: 100% !important; margin: 0 auto !important; }
-            .page-footer-img { max-height: 130px !important; }
-            .join-us-btn-container { display: none !important; }
-            table.ad-table, .info-card, .footer-image-box, .last-page-footer-box {
-                page-break-inside: avoid;
-            }
+            @page { size: A4 portrait; margin: 10mm 15mm; }
+            body { background-color: transparent; padding: 0; }
+            .page-container { box-shadow: none; max-width: 100%; }
+            .submit-btn-container, .btn-clear-sig, #loadingOverlay { display: none !important; }
+            table, th, td { border: 1px solid #1b3d6d !important; display: table-cell !important; }
+            tr { display: table-row !important; }
         }
 
-        /* 📱 手機響應式防擠壓終極設定 (Flex Wrap & 卡片自適應) */
+        /* 📱 手機響應式排版 (解鎖高度與邊界防護) */
         @media (max-width: 768px) {
-            body { padding: 0; }
-            .ad-container { border-radius: 0; box-shadow: none; }
-            .page { padding: 18px 12px 12px 12px; min-height: auto; border-bottom: 2px dashed #cbd5e1; }
+            body { padding: 6px 0; }
+            .page { padding: 16px 12px; }
             
-            .header-flex-box { padding: 14px 12px; flex-direction: column-reverse; text-align: center; min-height: auto; }
-            .title-group { text-align: center; width: 100%; }
-            .title-group h1 span.en-main-title { font-size: 16px; }
-            .title-group h1 span.zh-sub-title { font-size: 14px; white-space: normal; }
-            .logo-img { max-width: 90px; margin-bottom: 8px; margin-right: 0; }
+            .header-section { flex-direction: column; align-items: center; text-align: center; }
+            .title-area { padding-right: 0; margin-bottom: 14px; }
             
-            .description-scroll-box { max-height: none; overflow-y: visible; padding: 10px 12px; }
+            .table-responsive-wrapper { overflow-x: visible !important; }
+            table { width: 100% !important; min-width: 0 !important; display: block !important; border: none !important; }
+            tbody { display: block !important; width: 100% !important; }
+            tr { display: flex !important; flex-wrap: wrap !important; width: 100% !important; margin-bottom: 12px; border: 1.5px solid var(--uci-blue) !important; border-radius: 8px; overflow: hidden; background: #fff; }
             
-            .table-container { overflow-x: visible; }
-            /* ⚡ 核心修復：表格動態轉為卡片化流暢顯示，絕不擠壓 */
-            table.ad-table { 
-                display: block; 
-                width: 100% !important; 
-                table-layout: auto;
-            }
-            table.ad-table thead { display: none; } /* 手機端隱藏傳統表頭 */
-            table.ad-table tbody { display: block; width: 100%; }
-            table.ad-table tr { 
-                display: flex; 
-                flex-direction: column; 
-                width: 100%; 
-                margin-bottom: 10px; 
-                border: 1.5px solid var(--uci-blue) !important; 
-                border-radius: 8px; 
-                overflow: hidden; 
-                background: #fff;
-            }
-            table.ad-table th, table.ad-table td { 
+            th { display: block !important; width: 100% !important; background-color: #e6f0fa !important; text-align: left !important; padding: 6px 10px !important; border-bottom: 1px solid var(--uci-blue) !important; border-right: none !important; }
+            th span.zh-title { font-size: 13px !important; display: inline-block !important; margin-right: 6px; }
+            th span.en-title { font-size: 10.5px !important; display: inline-block !important; }
+
+            td { 
                 display: block !important; 
                 width: 100% !important; 
+                height: auto !important; 
+                min-height: 48px !important; 
+                padding: 8px 10px !important; 
                 border: none !important; 
-                box-sizing: border-box; 
-                padding: 8px 10px !important;
+                border-bottom: 1px dashed #cbd5e1 !important; 
+                box-sizing: border-box !important;
             }
-            table.ad-table td.center-text { 
-                background-color: #f0f4f8; 
-                border-bottom: 1px solid var(--uci-blue) !important; 
+            td:last-child { border-bottom: none !important; }
+
+            .text-input { 
+                height: 42px !important; 
+                line-height: normal !important; 
+                font-size: 14px !important; 
+                padding: 6px 10px !important; 
+                background-color: #fafbfc; 
+                border-radius: 6px; 
+                border: 1px solid #cbd5e1 !important; 
                 text-align: left !important;
+                box-sizing: border-box !important;
             }
-            table.ad-table td.left-align { border-bottom: 1px dashed #cbd5e1 !important; }
-            table.ad-table td:last-child { border-bottom: none !important; }
-
-            .info-card { padding: 10px 12px; }
-            ul.list-style { padding-left: 15px; }
-
-            .footer-image-box { width: calc(100% + 24px); margin-left: -12px; }
-            .last-page-footer-box { width: 100%; margin: 0 auto; }
-            .page-footer-img { max-height: 120px; }
+            .text-input:focus { background-color: #fff !important; border-color: var(--uci-blue) !important; }
+            
+            .signature-section { flex-direction: column; gap: 15px; }
+            .signature-box { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-<div class="ad-container">
+<div id="loadingOverlay">
+    <div style="font-size: 40px; margin-bottom: 10px;">🛡️🛹</div>
+    <div>正在調閱雲端報名資料，請稍候...</div>
+</div>
 
-    <!-- ================= PAGE 1 ================= -->
-    <div class="page">
-        <div class="page-content">
-            <div class="header-flex-box">
-                <div class="title-group">
-                    <h1>
-                        <span class="en-main-title">Bobby English: Advance C1 - <span class="zh-title-tag">青少年觀點表達與結構寫作班</span></span>
-                        <span class="zh-sub-title">✨ C1 青少年觀點表達與結構寫作班 <span class="en-sub-tag">(Global Perspectives & Structural Literacy)</span> ✨</span>
-                    </h1>
-                    <h2>"COMMUNICATION. ACCURACY. CONFIDENCE." 🚀</h2>
+<div class="page-container">
+    <form id="enrollmentForm">
+        <input type="hidden" name="series" value="Advance">
+        <input type="hidden" name="formType" value="registration">
+        <input type="hidden" id="course_name_hidden" name="course_name" value="Advance C1">
+        <input type="hidden" id="class_time" name="class_time" value="">
+        <input type="hidden" id="sub_tuition" name="sub_tuition" value="0">
+        <input type="hidden" id="sub_materials" name="sub_materials" value="0">
+        <input type="hidden" id="sub_misc" name="sub_misc" value="0">
+        <input type="hidden" id="discount_plan_text" name="discount_plan_text" value="">
+
+        <input type="hidden" id="student_photo_base64" name="student_photo_base64" value="">
+        <input type="hidden" id="parent_signature_base64" name="parent_signature_base64" value="">
+        <input type="hidden" id="staff_signature_base64" name="staff_signature_base64" value="">
+
+        <!-- PAGE 1 -->
+        <div class="page page1">
+            <div id="dynamicBannerDisplay" class="dynamic-top-banner">Advance C1 專屬智慧報名系統</div>
+
+            <div class="header-section">
+                <div class="title-area">
+                    <h1 class="main-title" id="mainTitleDisplay">私立巴比美語短期補習班 ｜ Advance C1 專屬智慧報名系統</h1>
+                    <h2 class="sub-title" id="subTitleDisplay">Bobby English School - Advance C1 Enrollment Form</h2>
+                    <div class="contact-info">
+                        <p><strong>電話 / Phone：</strong>03-2161338</p>
+                        <p><strong>官方 / Line：</strong>@bobbyenglish</p>
+                        <p><strong>信箱 / E-mail：</strong>Joy@bobbyenglishschool.com</p>
+                        <p><strong>地址 / Address：</strong>330 桃園市桃園區莊二街156號1樓</p>
+                        <p><strong>立案字號 / Registration No.：</strong>府教社字第0930131461號</p>
+                    </div>
                 </div>
-                <img src="BOBBY ENGLISH SCHOOL_去背檔.png" alt="私立巴比美語短期補習班標章" class="logo-img">
-            </div>
-
-            <h2 class="section-heading">💡 教學理念：關於現階段的英語思維 | Educational Philosophy</h2>
-            
-            <div class="description-scroll-box">
-                <p class="paragraph-desc" style="font-size: 13.5px; color: var(--uci-blue); font-weight: 700; margin-bottom: 6px;">
-                    【將語言實力轉化為深刻的<span class="no-orphan">觀點表達】</span>
-                    <span style="font-size: 11px; color: var(--text-sub); font-weight: 400; display: block; margin-top: 2px;">[Turning Language Skills into Meaningful, Well-Expressed Viewpoints]</span>
-                </p>
-                <p class="paragraph-desc">
-                    對於目前就讀國三、且已具備英檢初級以上實力的同學而言，這個階段的英語學習，關鍵在於「如何將語言能力轉化為深刻的觀點表達」。在明年五月迎來國中會考之前，孩子們除了需要穩固嚴謹的語法結構以應對長難句，更需要提早適應高中、甚至未來國際頂尖學制所重視的跨學科思辨能力。本課程於 8/31 至隔年 1/4 的每週一晚上，以全美語的沉浸式環境，陪伴 10 人以內的精緻班級，進行一場視野與筆尖的跨界探索。（※ 備註：9/28、10/26 國定假日不上課。）
-                </p>
-                <p class="paragraph-desc" style="margin-top: 8px; border-top: 1px dashed var(--border-color); padding-top: 8px;">
-                    <strong style="font-weight: 800; color: var(--uci-blue);">【Developing Critical Academic Thought】</strong>
-                    <span class="light-en-text">For 9th graders who already possess intermediate-level English proficiency, the key to language development at this stage lies in turning language skills into meaningful, well-expressed viewpoints. Before facing the upcoming CAP exam next May, students not only need a solid grasp of rigorous grammatical structures to handle complex reading passages but also need early exposure to the interdisciplinary critical thinking highly valued in high school and global academic frameworks. This course runs every Monday evening from August 31st to January 4th in a fully immersive English environment. We welcome a small group of students to join us in exploring global outlooks and structural writing. (※ Note: No classes on the public holidays of Sep 28 and Oct 26.)</span>
-                </p>
-            </div>
-
-            <h2 class="section-heading" style="margin-top: 8px;">🌐 什麼是 IBDP 國際文憑先修？它如何幫助孩子？ | What is IBDP & How Does It Help?</h2>
-            <div class="info-card">
-                <p class="paragraph-desc" style="margin-bottom: 4px;">
-                    許多家長常問：為什麼我們要在國三這個階段，帶入 <strong>IBDP（國際文憑課程）</strong> 的元素？IBDP 是全球頂尖大學（如哈佛、牛津、台大、清大）高度認可的菁英學制。它不考死記硬背的選擇題，而是要求學生針對全球議題進行深度閱讀，並寫出具備個人觀點的論述。提早接觸這套學制，將帶給孩子四大<span class="no-orphan">核心優勢：</span>
-                </p>
-                <span class="light-en-text">IBDP is an elite educational framework recognized by top universities worldwide. Instead of rote memorization, it requires students to read deeply and articulate independent viewpoints. Early exposure to this framework grants students four core advantages:</span>
                 
-                <ul class="list-style" style="margin-bottom: 0; margin-top: 6px;">
-                    <li><strong>1. 超前演練高中「學習歷程檔案」：</strong>提前適應台灣高中 108 課綱最重視的「探究與實作」與小論文<span class="no-orphan">撰寫邏輯。</span><br><span class="eng-text">High School Portfolio Readiness: Early training for the "Inquiry and Practice" projects and micro-essays highly valued in Taiwan's high school curriculum.</span></li>
-                    <li><strong>2. 輕鬆駕馭高中英文長難句：</strong>高中英文的長度與廣度是國中的數倍，接觸學術文本能讓孩子上高中後「降維打擊」<span class="no-orphan">校內課業。</span><br><span class="eng-text">Effortless Transition to High School English: Academic texts prepare students to comfortably handle the vast expansion of reading volume in high school.</span></li>
-                    <li><strong>3. 鍛鍊個人申請的面試表達力：</strong>在 10 人小班中引導孩子針對議題進行「有邏輯的英文辯證」，培養未來甄選面試的<span class="no-orphan">從容自信。</span><br><span class="eng-text">Polishing Interview & Presentation Skills: Guided logical discussions in a small group build confidence and articulation for future school interviews.</span></li>
-                    <li><strong>4. 奠定國際檢定（托福/雅思）實力：</strong>文本的廣度涵蓋科學與人文，為未來有出國規劃或頂尖大學外文檢定門檻做最<span class="no-orphan">紮實的準備。</span><br><span class="eng-text">Solid Foundation for TOEFL/IELTS: Broad content covering sciences and humanities thoroughly prepares students for future international proficiency exams.</span></li>
-                </ul>
+                <label class="photo-box" id="photoContainer">
+                    <div id="uploadText">點擊上傳照片<br>Click to Upload<br>(2-inch)</div>
+                    <input type="file" accept="image/*" class="photo-file-input" onchange="processImageUpload(this)">
+                </label>
             </div>
-        </div>
 
-        <div class="footer-image-box">
-            <img src="Advancekids.png" alt="巴比美語學員快樂探究合照" class="page-footer-img">
-        </div>
-    </div>
-
-    <!-- ================= PAGE 2 ================= -->
-    <div class="page">
-        <div class="page-content" style="padding-top: 5px;">
-            <h2 class="section-heading" style="margin-top: 0;">🌐 課程設計的兩大主軸 | Two Pillars of the Curriculum</h2>
-            <div class="table-container">
-                <table class="ad-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 35%;">核心主軸 | Core Pillar</th>
-                            <th style="width: 65%;">課程教學特色與內容 | Teaching Focus & Features</th>
-                        </tr>
-                    </thead>
+            <div class="section-title">學員基本資料 Student Information</div>
+            <div class="table-responsive-wrapper">
+                <table>
                     <tbody>
                         <tr>
-                            <td class="center-text">🟢 Pillar 1<br>國際視野五大主題先修<br><span class="note">聽說讀寫綜合研討</span></td>
+                            <th><span class="zh-title">中文姓名</span><span class="en-title">Chinese Name</span></th>
+                            <td><input type="text" id="student_name_zh" name="student_name_zh" class="text-input" placeholder="請輸入學員中文姓名" required></td>
+                            <th><span class="zh-title">英文姓名</span><span class="en-title">English Name</span></th>
+                            <td><input type="text" id="student_name_en" name="student_name_en" class="text-input" placeholder="e.g. Joy Chen" required></td>
+                            <th><span class="zh-title">性別</span><span class="en-title">Gender</span></th>
                             <td>
-                                <strong>「將英語視為理解世界的工具」</strong> <span class="note">"Using English as a tool to understand the world."</span>
-                                <ul class="list-style" style="margin-top: 4px; margin-bottom: 0;">
-                                    <li><strong>五大核心領域：</strong>探討「身份認同、人生經歷、人類創造力、社會組織、共享地球」等議題，帶領孩子接觸 AI 倫理、環境變遷與文化傳承等<span class="no-orphan">真實文本。</span><br><span class="eng-text">Five Core Themes: Exploring Identities, Experiences, Human Ingenuity, Social Organization, and Sharing the Planet, introducing real-world texts on AI ethics, climate change, and cultural heritage.</span></li>
-                                    <li><strong>多元體裁寫作（論證基礎）：</strong>引導孩子練習撰寫社論（Op-Ed）、正式提案（Proposal）、部落格（Blog）與正式書信（Formal Letter），適應不同讀者設定與<span class="no-orphan">寫作語氣。</span><br><span class="eng-text">Text-Type Writing: Practicing Op-Eds, proposals, blogs, and formal letters, adapting tone to different target audiences.</span></li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="center-text">🔵 Pillar 2<br>Azar Understanding (藍本)<br><span class="note">嚴謹語法解構與會考應戰實力</span></td>
-                            <td>
-                                <strong>「用最嚴謹的語法架構，輕鬆駕馭升學長難句」</strong> <span class="note">"Mastering rigorous grammar structures to effortlessly navigate complex academic reading."</span>
-                                <ul class="list-style" style="margin-top: 4px; margin-bottom: 0;">
-                                    <li><strong>文法架構梳理：</strong>運用經典的 Azar 圖表，系統化解構完成式、被動語態與三大子句等國中<span class="no-orphan">核心文法。</span><br><span class="eng-text">Grammar Structure: Utilizing classic Azar charts to systematically deconstruct core grammar including perfect tenses, passive voice, and relative clauses.</span></li>
-                                    <li><strong>課堂現場寫作：</strong>每週配合文法進度，引導學生在課堂上直接完成段落練習，並給予<span class="no-orphan">即時回饋。</span><br><span class="eng-text">In-Class Writing: Aligned with the grammar timeline, students practice paragraph writing in class with immediate teacher feedback.</span></li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h2 class="section-heading" style="margin-top: 8px;">📅 17堂課學期進度總覽 | 17-Lesson Course Outline</h2>
-            <p class="paragraph-desc" style="margin-bottom: 4px;">每堂課 2 小時完美融合：45分鐘全球議題研討 ＋ 45分鐘 Azar 高階語法拆解 ＋ 30分鐘寫作與哲學反思（TOK）。<br>
-            <span class="light-en-text" style="display:block; margin-top: 2px;">Each 2-hour session integrates: 45 mins Global Theme Discussion + 45 mins Azar Advanced Grammar + 30 mins Writing & Critical Reflection (TOK).</span></p>
-
-            <div class="info-card" style="padding: 10px 14px;">
-                <ul class="list-style" style="margin-bottom: 0;">
-                    <li>
-                        <strong>Phase 1：身分認同與高階時態 (Lessons 1-3 | Aug 31 - Sep 14)</strong>
-                        <br>• <strong>主題思辨：</strong>探討青少年次文化、語言與文化的根源、以及面對大考的心理<span class="no-orphan">健康調適。</span><span class="eng-text">Global Themes: Youth subcultures, linguistic heritage, and stress-coping mechanisms for exam takers.</span>
-                        <br>• <strong>高階語法：</strong>英文時態系統深度解析、狀態動詞與動態動詞細微差別、主謂一致性（進階複數）。<span class="eng-text">Grammar Mastery: Deep dive into the tense system, stative vs. dynamic verbs, and advanced subject-verb agreement.</span>
-                    </li>
-                    <li style="margin-top: 8px;">
-                        <strong>Phase 2：人生經歷與被動助動詞 (Lessons 4-5 | Sep 21 - Oct 5)</strong>
-                        <br>• <strong>主題思辨：</strong>跨文化成年禮、過度觀光與生態旅遊的平衡、全球<span class="no-orphan">公民意識。</span><span class="eng-text">Global Themes: Cross-cultural rites of passage, overtourism vs. ecotourism, and global citizenship.</span>
-                        <br>• <strong>高階語法：</strong>過去時間的助動詞推測（must/should have V3）、複雜與狀態被動語態。<span class="eng-text">Grammar Mastery: Modals of past certainty/regret, complex and stative passive voice structures.</span>
-                    </li>
-                    <li style="margin-top: 8px;">
-                        <strong>Phase 3：人類創造力與三大高級子句 (Lessons 6-8 | Oct 12 - Nov 2)</strong>
-                        <br>• <strong>主題思辨：</strong>AI 科技與未來職場、現代藝術與圖像閱讀（Banksy 作品分析）、基因編輯的<span class="no-orphan">科學倫理。</span><span class="eng-text">Global Themes: AI technology & the future of work, visual literacy in modern street art, and ethics in gene editing.</span>
-                        <br>• <strong>高階語法：</strong>名詞子句（含萬用虛主詞）、形容詞子句（介系詞＋關代）、副詞子句與邏輯連接詞。<span class="eng-text">Grammar Mastery: Noun clauses (subjunctives), adjective clauses (prep + relative), and adverb clauses.</span>
-                    </li>
-                    <li style="margin-top: 8px;">
-                        <strong>Phase 4：社會組織與進階修飾語 (Lessons 9-11 | Nov 9 - Nov 23)</strong>
-                        <br>• <strong>主題思辨：</strong>全球教育體制對比（學科考試 vs. 多元評量）、青少年司法制度、遠端工作與<span class="no-orphan">高齡化社會。</span><span class="eng-text">Global Themes: Global education models (exams vs. assessments), juvenile justice, and remote work impacts.</span>
-                        <br>• <strong>高階語法：</strong>動名詞與不定詞的語意轉變、平行結構與不對稱句型修飾。<span class="eng-text">Grammar Mastery: Gerunds & infinitives with meaning changes, parallel structures, and advanced modifiers.</span>
-                    </li>
-                    <li style="margin-top: 8px;">
-                        <strong>Phase 5：共享地球與高級倒裝句型 (Lessons 12-14 | Nov 30 - Dec 14)</strong>
-                        <br>• <strong>主題思辨：</strong>氣候變遷與環境難民、快時尚背後的資源消耗、國際非政府組織（NGO）的<span class="no-orphan">全球合作。</span><span class="eng-text">Global Themes: Climate change and eco-refugees, the true cost of fast fashion, and international NGO cooperation.</span>
-                        <br>• <strong>高階語法：</strong>混合條件句（Type 2 & 3）、高級假設語氣（wish / as if）、條件句省略與高級倒裝句型。<span class="eng-text">Grammar Mastery: Mixed conditionals, hypothetical pasts, omitted "if" structures, and advanced emphasis inversions.</span>
-                    </li>
-                    <li style="margin-top: 8px;">
-                        <strong>Phase 6：思辨發表與高中銜接複習 (Lessons 15-17 | Dec 21 - Jan 4)</strong>
-                        <br>• <strong>主題思辨：</strong>IBDP 寫作體裁（Paper 1）全真模擬、個人世界議題口說發表（IO Presentation）、高中知識論（TOK）<span class="no-orphan">哲學啟蒙。</span><span class="eng-text">Global Themes: Paper 1 Text Handling, Individual Oral (IO) Simulation, and introduction to Theory of Knowledge (TOK).</span>
-                        <br>• <strong>高階語法：</strong>會考高分盲點與陷阱題總複習、藍本 Azar 診斷測驗、高中語法斷層銜接。<span class="eng-text">Grammar Mastery: Comprehensive review for CAP exam traps, Azar diagnostic testing, and high school grammar transition.</span>
-                    </li>
-                </ul>
-            </div>
-            
-            <p class="paragraph-desc" style="font-size: 11px; color: var(--text-sub); margin-top: 4px;">
-                📊 <strong>彈性延伸單元 (Lessons 18-19 | 獨立引導與精修)：</strong>此兩堂課可視學生狀況，靈活調整為「全真會考英語文法題庫衝刺」或「個人英語思辨寫作作品集（Portfolio）一對一深度編修」。<br>
-                <span class="note" style="display:block; margin-top:1px;">Flexible Buffers: Tailored to student needs—can be utilized as intensive CAP mock exam drills or one-on-one portfolio feedback.</span>
-            </p>
-        </div>
-
-        <div class="footer-image-box">
-            <img src="Advancekids.png" alt="巴比美語學員快樂探究合照" class="page-footer-img">
-        </div>
-    </div>
-
-    <!-- ================= PAGE 3 ================= -->
-    <div class="page">
-        <div class="page-content" style="padding-top: 5px;">
-            <h2 class="section-heading" style="margin-top: 0;">📌 班級招生資訊 | Course Details</h2>
-            <div class="table-container">
-                <table class="center-table ad-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 35%;">招生項目 | Information Item</th>
-                            <th style="width: 65%;">班級詳細資訊 | Class Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="font-weight: bold;">📅 課程日期 | Course Dates</td>
-                            <td class="left-align">2026年8月31日(一)正式開課 至 2027年1月4日(一)(每週一晚上)<br><span class="note">Starts from August 31, 2026 to January 4, 2027 (Every Monday Evening) [※ Sep 28 & Oct 26 Public Holidays Off]</span></td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold;">⏰ 上課時間 | Class Time</td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding: 2px 0;">
-                                    <div style="font-weight:800; color:var(--uci-blue); font-size:13px; line-height:1.2;">
-                                        <span class="no-orphan">每週一晚上</span>
-                                    </div>
-                                    <div style="font-weight:700; color:var(--uci-blue); font-size:11.5px; line-height:1.2; margin-top:3px;">
-                                        <span class="no-orphan">7:00 PM - 9:00 PM (2小時/堂)</span>
-                                    </div>
+                                <div class="radio-group">
+                                    <label><input type="radio" name="gender" value="男" required> 男/M</label>
+                                    <label><input type="radio" name="gender" value="女" required> 女/F</label>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td style="font-weight: bold;">🔢 總堂數 | Total Lessons</td>
-                            <td class="left-align">全期共 17 堂國際觀點與高階結構寫作實戰課<br><span class="note">17 lessons in total for the entire semester</span></td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold;">🎒 招生對象 | Target Students</td>
-                            <td class="left-align">國三希望在會考前精益求精、並提早適應高中高階英語思辨能力的同學<br><span class="note">9th graders aiming to excel in local exams while adapting to high school critical thinking.</span></td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold;">🛡️ 新生入學條件 | Admission Requirements</td>
-                            <td class="left-align" style="color: var(--text-main); font-size: 12.5px; line-height: 1.5;">
-                                1. 小朋友美語學習經驗需滿 5 年以上或具備英檢初級以上實力<br>
-                                2. 須通過補習班入學口試與筆試測驗
+                            <th><span class="zh-title">出生日期</span><span class="en-title">Date of Birth</span></th>
+                            <td><input type="text" id="dob" name="dob" class="text-input" placeholder="例：2018/05/20" required></td>
+                            <th><span class="zh-title">就讀學校</span><span class="en-title">School</span></th>
+                            <td><input type="text" id="school_name" name="school_name" class="text-input" placeholder="請填就讀國小/國中"></td>
+                            <th><span class="zh-title">年級</span><span class="en-title">Grade</span></th>
+                            <td>
+                                <div style="display: flex; align-items: center; justify-content: flex-start; padding: 0 4px; height: 100%; white-space: nowrap;">
+                                    <input type="text" id="grade_level" name="grade_level" style="border: none; border-bottom: 1.5px solid #1b3d6d; width: 45px; text-align: center; margin: 0 2px; background: transparent; outline: none; font-weight: bold;" placeholder="如：7"> 年級
+                                </div>
                             </td>
                         </tr>
                         <tr>
-                            <td style="font-weight: bold;">💰 課程學費 | Tuition Fee</td>
-                            <td class="left-align">
-                                <strong style="color: var(--soft-red); font-size: 14.5px;">新生（需購買教材）原價：NT$17,310元</strong> <span class="note">(學費 $14,450 + 藍本Azar全套 $1,340 + 專屬筆記本 $500 + 學雜費 $1,020)</span>
-                                <strong style="color: var(--uci-blue); font-size: 14.5px; display:block; margin-top:2px;">舊生（無需購買教材）原價：NT$15,970元</strong> <span class="note">(學費 $14,450 + 專屬寫作筆記本 $500 + 學雜費 $1,020)</span>
+                            <th><span class="zh-title">家長姓名</span><span class="en-title">Parent's Name</span></th>
+                            <td><input type="text" id="parent_name" name="parent_name" class="text-input" placeholder="請填家長全名" required></td>
+                            <th><span class="zh-title">與學生關係</span><span class="en-title">Relationship</span></th>
+                            <td><input type="text" id="relationship" name="relationship" class="text-input" placeholder="如：父、母" required></td>
+                            <th><span class="zh-title">聯絡電話</span><span class="en-title">Phone Number</span></th>
+                            <td><input type="tel" id="phone" name="phone" class="text-input" placeholder="如：0912345678" required></td>
+                        </tr>
+                        <tr>
+                            <th><span class="zh-title">電子信箱</span><span class="en-title">E-mail</span></th>
+                            <td colspan="3"><input type="email" id="email" name="email" class="text-input" placeholder="接收開課與重要校務通知"></td>
+                            <th><span class="zh-title">LINE ID</span><span class="en-title">LINE ID</span></th>
+                            <td><input type="text" id="line_id" name="line_id" class="text-input" placeholder="方便課務聯繫"></td>
+                        </tr>
+                        <tr>
+                            <th><span class="zh-title">通訊地址</span><span class="en-title">Mailing Address</span></th>
+                            <td colspan="5"><input type="text" id="address" name="address" class="text-input" placeholder="請填完整通訊地址" required></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-title">報名班別與即時計費 Course & Billing</div>
+            <div class="table-responsive-wrapper">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th><span class="zh-title">就讀班別</span><span class="en-title">Course</span></th>
+                            <td colspan="2">
+                                <div id="courseLabelDisplay" class="static-course-display">未設定課程</div>
+                            </td>
+                            <th><span class="zh-title">標準上課時段</span><span class="en-title">Schedule</span></th>
+                            <td colspan="2" id="timeDisplay" style="padding: 0; text-align: center; vertical-align: middle;">載入中...</td>
+                        </tr>
+                        <!-- 🎯 Advance 系列專屬：保留「學員身分標籤」動態計費切換 (C1 班別常態全開) -->
+                        <tr>
+                            <th><span class="zh-title">學員身分標籤</span><span class="en-title">Student Identity</span></th>
+                            <td colspan="5">
+                                <div class="radio-group">
+                                    <label><input type="radio" name="student_identity" value="new" checked onchange="calculateTuition()"> 新生（需購買專屬教材）</label>
+                                    <label><input type="radio" name="student_identity" value="old_with_mat" onchange="calculateTuition()"> 舊生（需購買當期新教材）</label>
+                                    <label><input type="radio" name="student_identity" value="old_no_mat" onchange="calculateTuition()"> 舊生（延用舊教材／免購教材）</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="standardDiscountRow">
+                            <th><span class="zh-title">優惠方案配置</span><span class="en-title">Discount Plan</span></th>
+                            <td colspan="5">
+                                <div class="radio-group">
+                                    <label><input type="radio" name="discount_plan" value="1.0" checked onchange="calculateTuition()"> 常態收費原價 (Full Price)</label>
+                                    <label><input type="radio" name="discount_plan" value="0.9" onchange="calculateTuition()"> 9 折優惠 (10% OFF)</label>
+                                    <label><input type="radio" name="discount_plan" value="0.85" onchange="calculateTuition()"> 85 折優惠 (15% OFF)</label>
+                                    <label><input type="radio" name="discount_plan" value="0.8" onchange="calculateTuition()"> ✨ 8 折優惠 (20% OFF)</label>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div class="pyp-badge">
-                <p>將英語實力內化為清晰思辨力，優雅跨越會考門檻並提早無縫接軌高中學習<span class="no-orphan">歷程！</span></p>
-                <p style="font-size: 11px; font-weight: 400; color: #64748b; margin-top: 2px;">Communication, Accuracy, Confidence with Bobby English School!</p>
-            </div>
+            <div class="offer-box" id="calcPreview">核心大腦即時計算中...</div>
 
-            <div class="note-lines-container">
-                <div class="note-title">📝 家長備註與諮詢紀錄 | Parent Notes</div>
-                <textarea class="note-textarea-6lines" placeholder="在此處記錄諮詢筆記..."></textarea>
+            <div class="section-title">補習班行政確認欄 Office Use Only</div>
+            <div class="table-responsive-wrapper">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th><span class="zh-title">應繳總金額</span><span class="en-title">Total Amount</span></th>
+                            <td><input type="text" id="total_amount" name="total_amount" class="text-input" style="font-weight: bold; color: #c00; font-size: 16px;" placeholder="$" readonly></td>
+                            <th><span class="zh-title">付款方式</span><span class="en-title">Payment Method</span></th>
+                            <td colspan="3">
+                                <div class="payment-inline-row">
+                                    <label><input type="radio" name="payment_method" value="現金" checked onclick="updatePaymentMethodValue()"> 現金 Cash</label>
+                                    <label style="display: flex; align-items: center; gap: 2px;">
+                                        <input type="radio" id="pay_transfer_radio" name="payment_method" value="銀行轉帳" onclick="updatePaymentMethodValue()"> 銀行轉帳(後五碼)：
+                                        <input type="text" id="transfer_code" name="transfer_code" style="border: none; border-bottom: 1.5px solid #333; width: 60px; background: transparent; outline: none; text-align: center; font-size: 13px; height: 22px; padding: 0;" oninput="updatePaymentMethodValue()">
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="zh-title">經辦人員</span><span class="en-title">Staff Name</span></th>
+                            <td><input type="text" id="staff_name" name="staff_name" class="text-input" value="Joy"></td>
+                            <th><span class="zh-title">收據編號</span><span class="en-title">Receipt No.</span></th>
+                            <td><input type="text" id="receipt_no" name="receipt_no" class="text-input" placeholder="R-2026-XXXX"></td>
+                            <th><span class="zh-title">教材發放狀況</span><span class="en-title">Material Status</span></th>
+                            <td>
+                                <div class="radio-group">
+                                    <label><input type="radio" name="materials_status" value="已發放"> 已發放</label>
+                                    <label><input type="radio" name="materials_status" value="待發放" checked> 待發放</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <div class="last-page-footer-box">
-            <div class="join-us-btn-container">
-                <img src="Advance-registrationform.png" alt="點擊立即進行 Advance C1 線上報名登記" class="cta-join-us-img" onclick="openRegistrationForm(event)">
+        <!-- PAGE 2 -->
+        <div class="page page2">
+            <h2 class="terms-header">報名條款與家長同意書<br><span style="font-size: 13.5px; font-weight: 500; color: var(--text-sub); display: block; margin-top: 4px;">Terms & Conditions (Bobby English School Policies)</span></h2>
+            
+            <div class="privacy-statement">
+                <strong>個資保護聲明 / Privacy Statement：</strong><br>
+                本班收集之個人資料僅供課程聯繫與行政管理使用，絕不外洩。符合中華民國個人資料保護法規範。<br>
+                <span style="color: var(--text-sub); display: block; margin-top: 3px;">All personal data collected by Bobby English School is strictly used for course communication and administrative purposes in accordance with the Personal Data Protection Act of the R.O.C. and will never be disclosed to third parties.</span>
             </div>
-            <div class="footer-image-box" style="margin-top: 0; width: 100%; margin-left: 0; justify-content: center;">
-                <img src="Advancekids.png" alt="巴比美語學員快樂探究合照" class="page-footer-img">
+
+            <div class="terms-list">
+                <div class="term-item">
+                    <strong>1. 審閱權與退費規定 / Refund Policy：</strong><br>
+                    依據「桃園市短期補習班退費管理自治條例」規定辦理。家長攜回審閱期至少五日。開課前30日前退費者，退還全額；開課前1日至29日退費者，退還90%；開課後5日內要求退費者，退還80%；上課未逾全期1/3期間內要求退費者，退還50%；超過全期1/3學期者不予退費。教材發放後亦不予退還。<br>
+                    <span style="color: var(--text-sub); display: block; margin-top: 4px;">Refunds are processed in accordance with the "Taoyuan Short-term Cram School Refund Management Regulations." Parents have at least a 5-day contract review period. A 100% refund is issued if requested 30 days prior to the course start date; a 90% refund if requested 1 to 29 days prior; an 80% refund within the first 5 days of class; a 50% refund if requested after the 6th day but before completing 1/3 of the total course duration. No refunds will be issued after 1/3 of the course duration has passed. No refunds on textbook or material fees once distributed.</span>
+                </div>
+                <div class="term-item">
+                    <strong>2. 請假與補課 / Leave & Make-up Lessons：</strong><br>
+                    因事或病假缺席者，請於上課前兩小時透過官方 LINE 或電話完成請假。完成請假者，本班將提供一對一或小組補課、輔導。無故缺課者（曠課）不予補課與退費。<br>
+                    <span style="color: var(--text-sub); display: block; margin-top: 4px;">In case of sick leave or personal leave, please notify the school via our official LINE account or phone at least 2 hours before class. For validated absences, the school will arrange one-on-one or small-group make-up tutoring. Unexcused absences (truancy) are non-refundable and not eligible for make-up lessons.</span>
+                </div>
+                <div class="term-item">
+                    <strong>3. 安全與公共責任 / Safety & Public Liability Insurance：</strong><br>
+                    為維護學生安全，下課後請家長按時前來接送。本補習班公共安全設施、消防設備以及公共意外責任險均嚴格符合政府法令規範。<br>
+                    <span style="color: var(--text-sub); display: block; margin-top: 4px;">To ensure student safety, parents are requested to pick up their children on time after class. Our school's public safety facilities, fire safety equipment, and public liability insurance strictly comply with government laws and regulations.</span>
+                </div>
+                <div class="term-item">
+                    <strong>4. 肖像權合理授權 / Portrait Rights Authorization：</strong><br>
+                    家長同意本班在節慶活動、課堂成果中進行拍照或錄影，合理授權作為內部成果展示與官方推廣使用，且不損及學生名譽。<br>
+                    <span style="color: var(--text-sub); display: block; margin-top: 3px;">Parents consent to the taking of photos or videos during festive activities and classroom presentations, authorizing their reasonable use for internal achievement showcases and official promotional purposes without compromising student reputation.</span>
+                </div>
+            </div>
+
+            <div class="signature-section">
+                <div class="signature-box">
+                    <div class="sig-title">
+                        <span>家長/監護人電子簽名 (Parent Signature)</span>
+                        <button type="button" class="btn-clear-sig" onclick="clearCanvas('parentSigPad')">清除 / Clear</button>
+                    </div>
+                    <div class="canvas-container" id="parentSigContainer">
+                        <canvas id="parentSigPad" class="sig-pad"></canvas>
+                    </div>
+                    <div class="sig-date-row">
+                        <span>簽署日期 Date：</span>
+                        <input type="date" name="parent_sig_date" id="parentSigDate" style="border: none; border-bottom: 1px solid #1b3d6d; background: transparent; font-size: 12px; padding: 2px 4px;" required>
+                    </div>
+                </div>
+
+                <div class="signature-box">
+                    <div class="sig-title">
+                        <span>承辦老師簽章 (Staff Signature)</span>
+                        <button type="button" class="btn-clear-sig" onclick="clearCanvas('staffSigPad')">清除 / Clear</button>
+                    </div>
+                    <div class="canvas-container" id="staffSigContainer">
+                        <canvas id="staffSigPad" class="sig-pad"></canvas>
+                    </div>
+                    <div class="sig-date-row">
+                        <span>簽署日期 Date：</span>
+                        <input type="date" name="staff_sig_date" id="staffSigDate" style="border: none; border-bottom: 1px solid #1b3d6d; background: transparent; font-size: 12px; padding: 2px 4px;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="submit-btn-container" id="submitBtnContainer">
+                <button type="submit" id="submitBtn" class="submit-btn">確認並送出報名表 / Submit Form</button>
             </div>
         </div>
+    </form>
+
+    <div id="successScreen">
+        <div class="success-icon">🎉</div>
+        <h2 class="success-title">報名資料已成功傳送！</h2>
+        <p class="success-subtitle">謝謝您完成 Advance C1 課程的線上報名，我們非常期待與孩子一同踏上美語學習之旅！</p>
+        <button type="button" class="reload-btn" style="background-color:var(--uci-blue); color:#fff; border:none; padding:12px 30px; border-radius:20px; cursor:pointer;" onclick="window.location.reload()">重新填寫報名表 / Submit Another Form</button>
     </div>
-
 </div>
 
-<!-- 📡 Aegis 單頁精準跳轉腳本：點擊直接開啟線上報名表網頁 -->
 <script>
-function openRegistrationForm(event) {
-    if (event) event.preventDefault();
-    var formUrl = "https://bobbyenglishschool.github.io/2026BobbyEnglish-Advance-adv_c1.html";
-    window.open(formUrl, "_blank");
+var courseDatabase = {
+    "Advance C1": { 
+        id: "Advance C1",
+        zhName: "高術思維與實戰活用", 
+        time: "<div style='display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding: 4px 0;'><div style='font-weight:800; color:var(--uci-blue); font-size:13px; line-height:1.2;'><span class='no-orphan'>每週二、四</span></div><div style='font-weight:700; color:var(--uci-blue); font-size:11.5px; line-height:1.2; margin-top:3px;'><span class='no-orphan'>4:30 PM - 6:30 PM (2小時/堂)</span></div></div>", 
+        lessons: 38, price: 770, materials: 3520, misc: 60 
+    }
+};
+
+var TARGET_COURSE = "Advance C1"; 
+var parentCanvas, staffCanvas, parentCtx, staffCtx;
+var isDrawingParent = false, isDrawingStaff = false;
+var PURE_GAS_URL = "https://script.google.com/macros/s/AKfycbwr4AAm42X6bvPwEbp8tPhyc0N3js3zhicgkD5YGrnk5EnKmeGakB7FUIcCH98glKrwVA/exec";
+
+function updatePaymentMethodValue() {
+    var transferRadio = document.getElementById('pay_transfer_radio');
+    var codeInput = document.getElementById('transfer_code');
+    if (transferRadio && codeInput) {
+        if (codeInput.value.trim() !== "") {
+            transferRadio.checked = true;
+            transferRadio.value = "銀行轉帳 (後五碼: " + codeInput.value.trim() + ")";
+        } else {
+            transferRadio.value = "銀行轉帳";
+        }
+    }
 }
+
+function loadRowDataIfPresent() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var rowIndex = urlParams.get('row');
+    var series = urlParams.get('series') || 'Advance';
+    var formType = urlParams.get('formType') || 'registration';
+    var autoPrint = urlParams.get('auto_print');
+
+    if (rowIndex) {
+        document.getElementById('loadingOverlay').style.display = 'flex';
+        var fetchUrl = PURE_GAS_URL + "?row=" + rowIndex + "&series=" + series + "&formType=" + formType;
+        
+        fetch(fetchUrl)
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            document.getElementById('loadingOverlay').style.display = 'none';
+            if (data && data.status === "success" && data.rowData) {
+                var row = data.rowData;
+                if (row[2]) document.getElementById('student_name_zh').value = row[2];
+                if (row[3]) document.getElementById('student_name_en').value = row[3];
+                if (row[4]) {
+                    var gRadios = document.querySelectorAll('input[name="gender"]');
+                    gRadios.forEach(function(r){ if(r.value === row[4]) r.checked = true; });
+                }
+
+                // 🛡️ 終極防彈本地時區生日還原器（完美不扣天數）
+                if (row[5]) {
+                    var rawDob = row[5].toString();
+                    var formattedDob = "";
+                    var match = rawDob.match(/(\d{4})[-/](\d{1,2})[-/](\d{1,2})/);
+                    if (match) {
+                        var y = match[1];
+                        var m = match[2].padStart(2, '0');
+                        var d = match[3].padStart(2, '0');
+                        formattedDob = y + "/" + m + "/" + d;
+                    } else {
+                        formattedDob = rawDob;
+                    }
+                    document.getElementById('dob').value = formattedDob;
+                }
+
+                if (row[6]) document.getElementById('school_name').value = row[6];
+                if (row[7]) document.getElementById('grade_level').value = row[7];
+                if (row[8]) document.getElementById('parent_name').value = row[8];
+                if (row[9]) document.getElementById('relationship').value = row[9];
+                if (row[10]) document.getElementById('phone').value = row[10];
+                if (row[11]) document.getElementById('email').value = row[11];
+                if (row[12]) document.getElementById('line_id').value = row[12];
+                if (row[13]) document.getElementById('address').value = row[13];
+
+                if (row[16]) {
+                    var payVal = row[16].toString();
+                    var pRadios = document.querySelectorAll('input[name="payment_method"]');
+                    if (payVal.indexOf('轉帳') !== -1) {
+                        var transferRadio = document.getElementById('pay_transfer_radio');
+                        if (transferRadio) { transferRadio.checked = true; transferRadio.value = payVal; }
+                        var match = payVal.match(/\d+/);
+                        if (match && document.getElementById('transfer_code')) {
+                            document.getElementById('transfer_code').value = match[0];
+                        }
+                    } else {
+                        pRadios.forEach(function(r){ if(r.value === payVal) r.checked = true; });
+                    }
+                }
+
+                if (row[17] && row[17].indexOf('http') === 0) {
+                    document.getElementById('photoContainer').innerHTML = '<img src="' + row[17] + '" class="preview-img" alt="學員大頭照">';
+                }
+                if (row[18] && row[18].indexOf('http') === 0) {
+                    document.getElementById('parentSigContainer').innerHTML = '<img src="' + row[18] + '" class="sig-preview-img" alt="家長電子簽名">';
+                }
+                if (row[19] && row[19].indexOf('http') === 0) {
+                    document.getElementById('staffSigContainer').innerHTML = '<img src="' + row[19] + '" class="sig-preview-img" alt="經辦簽名">';
+                }
+
+                if (document.getElementById('submitBtnContainer')) {
+                    document.getElementById('submitBtnContainer').style.display = 'none';
+                }
+
+                calculateTuition();
+
+                if (autoPrint === 'true') { setTimeout(function() { window.print(); }, 800); }
+            }
+        })
+        .catch(function(err) {
+            document.getElementById('loadingOverlay').style.display = 'none';
+            console.log("Row-ID Fetch Error:", err);
+        });
+    }
+}
+
+window.onload = function() {
+    document.getElementById('course_name_hidden').value = TARGET_COURSE;
+    document.getElementById('mainTitleDisplay').innerHTML = "私立巴比美語短期補習班 ｜ " + TARGET_COURSE + " 專屬智慧報名系統";
+    document.getElementById('subTitleDisplay').innerHTML = "Bobby English School - " + TARGET_COURSE + " Enrollment Form";
+    document.getElementById('dynamicBannerDisplay').innerHTML = TARGET_COURSE + " 專屬智慧報名系統";
+
+    var today = new Date().toISOString().split('T')[0];
+    if (document.getElementById('parentSigDate')) document.getElementById('parentSigDate').value = today;
+    if (document.getElementById('staffSigDate')) document.getElementById('staffSigDate').value = today;
+
+    initSignaturePads();
+    calculateTuition();
+    loadRowDataIfPresent();
+};
+
+function initSignaturePads() {
+    parentCanvas = document.getElementById('parentSigPad');
+    staffCanvas = document.getElementById('staffSigPad');
+    if (parentCanvas) setupCanvas(parentCanvas);
+    if (staffCanvas) setupCanvas(staffCanvas);
+    if (parentCanvas) parentCtx = parentCanvas.getContext('2d');
+    if (staffCanvas) staffCtx = staffCanvas.getContext('2d');
+    if (parentCanvas) setupPadEvents(parentCanvas, parentCtx, function(drawing) { isDrawingParent = drawing; });
+    if (staffCanvas) setupPadEvents(staffCanvas, staffCtx, function(drawing) { isDrawingStaff = drawing; });
+}
+
+function setupCanvas(canvas) {
+    var rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width || 300;
+    canvas.height = rect.height || 120;
+}
+
+function setupPadEvents(canvas, ctx, setDrawingState) {
+    function resetCtxStyle() { ctx.strokeStyle = "#1b3d6d"; ctx.lineWidth = 2.5; ctx.lineCap = "round"; ctx.lineJoin = "round"; }
+    function getPos(e) {
+        var rect = canvas.getBoundingClientRect();
+        var clientX = e.clientX || (e.touches && e.touches[0].clientX);
+        var clientY = e.clientY || (e.touches && e.touches[0].clientY);
+        return { x: clientX - rect.left, y: clientY - rect.top };
+    }
+    canvas.addEventListener('mousedown', function(e) { setDrawingState(true); resetCtxStyle(); var pos = getPos(e); ctx.beginPath(); ctx.moveTo(pos.x, pos.y); });
+    canvas.addEventListener('mousemove', function(e) { if ((canvas.id === 'parentSigPad' && isDrawingParent) || (canvas.id === 'staffSigPad' && isDrawingStaff)) { var pos = getPos(e); ctx.lineTo(pos.x, pos.y); ctx.stroke(); } });
+    window.addEventListener('mouseup', function() { setDrawingState(false); });
+    canvas.addEventListener('touchstart', function(e) { setDrawingState(true); resetCtxStyle(); var pos = getPos(e); ctx.beginPath(); ctx.moveTo(pos.x, pos.y); }, { passive: true });
+    canvas.addEventListener('touchmove', function(e) { if ((canvas.id === 'parentSigPad' && isDrawingParent) || (canvas.id === 'staffSigPad' && isDrawingStaff)) { var pos = getPos(e); ctx.lineTo(pos.x, pos.y); ctx.stroke(); } }, { passive: true });
+    canvas.addEventListener('touchend', function() { setDrawingState(false); });
+}
+
+function clearCanvas(canvasId) {
+    var canvas = document.getElementById(canvasId);
+    if (canvas) { canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height); }
+}
+
+function isCanvasBlank(canvas) {
+    if (!canvas) return true;
+    var context = canvas.getContext('2d');
+    var pixelBuffer = new Uint32Array(context.getImageData(0, 0, canvas.width, canvas.height).data.buffer);
+    return !pixelBuffer.some(function(color) { return color !== 0; });
+}
+
+// 🎯 Advance C1 專屬計費邏輯：結合「學員身分標籤」與「折扣率」
+function calculateTuition() {
+    try {
+        var courseKey = TARGET_COURSE;
+        var labelDisplay = document.getElementById('courseLabelDisplay');
+        var timeDisplay = document.getElementById('timeDisplay');
+        var calcPreview = document.getElementById('calcPreview');
+        var totalInput = document.getElementById('total_amount');
+
+        if (courseDatabase[courseKey]) {
+            var course = courseDatabase[courseKey];
+            labelDisplay.innerHTML = "<div class='course-id'>" + course.id + "</div><div class='course-zh'>" + course.zhName + "</div>";
+            document.getElementById('class_time').value = "每週二四 4:30-6:30 PM";
+            
+            // 1. 取得折扣率
+            var discountRate = 1.0;
+            var activeDiscountRadio = document.querySelector('input[name="discount_plan"]:checked');
+            if (activeDiscountRadio) {
+                discountRate = parseFloat(activeDiscountRadio.value);
+                document.getElementById('discount_plan_text').value = activeDiscountRadio.parentElement.innerText.trim();
+            }
+
+            // 2. 取得學員身分並決定教材費
+            var identity = "new";
+            var activeIdentityRadio = document.querySelector('input[name="student_identity"]:checked');
+            if (activeIdentityRadio) {
+                identity = activeIdentityRadio.value;
+            }
+
+            var tuitionTotal = course.price * course.lessons; // 770 * 38 = 29,260
+            var materialsTotal = (identity === 'old_no_mat') ? 0 : course.materials; // 新生/舊生含教材=$3,520，舊生免教材=$0
+            var miscTotal = course.misc * course.lessons;     // 60 * 38 = 2,280
+            
+            var subTotal = tuitionTotal + materialsTotal + miscTotal;
+            var finalTotal = Math.round(subTotal * discountRate);
+
+            document.getElementById('sub_tuition').value = Math.round(tuitionTotal * discountRate);
+            document.getElementById('sub_materials').value = Math.round(materialsTotal * discountRate);
+            document.getElementById('sub_misc').value = Math.round(miscTotal * discountRate);
+            
+            totalInput.value = "$" + finalTotal.toLocaleString();
+            timeDisplay.innerHTML = course.time;
+            
+            var discountStr = (discountRate * 10).toString();
+            if (discountRate === 1.0) discountStr = "10";
+            var discountText = discountRate === 1.0 ? "未套用額外優惠（維持原價）" : "套用 " + discountStr + " 折";
+            var idText = (identity === 'new') ? "新生" : (identity === 'old_with_mat' ? "舊生(含教材)" : "舊生(免購教材)");
+
+            calcPreview.innerHTML = "📚 <b>" + courseKey + " 費用明細與折扣說明（" + idText + "）</b>：<br>" +
+                                    "基本學費：$" + course.price + " × " + course.lessons + "堂 = $" + tuitionTotal.toLocaleString() + " | " +
+                                    "教材費：$" + materialsTotal.toLocaleString() + " | " +
+                                    "學雜費：$" + course.misc + " × " + course.lessons + "堂 = $" + miscTotal.toLocaleString() + "<br>" +
+                                    "👉 <b>全項目（學費＋教材＋雜費）" + discountText + "後實際總計：NT$ " + finalTotal.toLocaleString() + " 元</b>";
+        }
+    } catch (err) { console.error("Tuition error:", err); }
+}
+
+function processImageUpload(input) {
+    var container = document.getElementById('photoContainer');
+    var uploadText = document.getElementById('uploadText');
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            if (uploadText) uploadText.style.display = 'none';
+            var oldImg = container.querySelector('.preview-img');
+            if (oldImg) oldImg.remove();
+            var img = document.createElement('img');
+            img.src = e.target.result;
+            img.className = 'preview-img';
+            container.appendChild(img);
+            document.getElementById('student_photo_base64').value = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+document.getElementById('enrollmentForm').addEventListener('submit', function(e) {
+    e.preventDefault(); 
+    var form = this;
+    var submitBtn = document.getElementById('submitBtn');
+
+    if (isCanvasBlank(parentCanvas)) {
+        alert("⚠️ 請家長於下方進行電子簽名後再送出報名表喔！");
+        return;
+    }
+
+    updatePaymentMethodValue();
+
+    if (parentCanvas) document.getElementById('parent_signature_base64').value = parentCanvas.toDataURL("image/png");
+    if (!isCanvasBlank(staffCanvas)) {
+        document.getElementById('staff_signature_base64').value = staffCanvas.toDataURL("image/png");
+    }
+
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.innerText = "正在傳送資料至巴比核心雲端資料庫..."; }
+    
+    var formData = new FormData(form);
+    var object = {};
+    formData.forEach(function(value, key){ object[key] = value; });
+
+    fetch(PURE_GAS_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(object)
+    })
+    .then(function() {
+        document.getElementById('enrollmentForm').style.display = 'none';
+        document.getElementById('successScreen').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    })
+    .catch(function(error) {
+        document.getElementById('enrollmentForm').style.display = 'none';
+        document.getElementById('successScreen').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+});
 </script>
 </body>
 </html>

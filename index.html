@@ -22,6 +22,17 @@
         
         * { box-shadow: none; box-sizing: border-box; font-family: 'Inter', 'Noto Sans TC', sans-serif; -webkit-font-smoothing: antialiased; }
         body { background-color: #f1f5f9; margin: 0; padding: 20px 0; color: var(--text-main); line-height: 1.6; }
+
+        /* 🎨 提示文淡化屬性 (防範家長誤以為已填寫) */
+        ::placeholder {
+            color: #94a3b8 !important;
+            opacity: 0.75 !important;
+            font-style: italic !important;
+            font-weight: 400 !important;
+        }
+        ::-webkit-input-placeholder { color: #94a3b8 !important; opacity: 0.75 !important; font-style: italic !important; font-weight: 400 !important; }
+        :-ms-input-placeholder { color: #94a3b8 !important; opacity: 0.75 !important; font-style: italic !important; font-weight: 400 !important; }
+
         .page-container { max-width: 800px; margin: 0 auto; background: #fff; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border-radius: 12px; overflow: hidden; width: 100%; position: relative; }
         .page { padding: 30px 40px; }
         .dynamic-top-banner { font-size: 15px; font-weight: 800; color: var(--uci-blue); background-color: #e6f0fa; padding: 6px 14px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid var(--uci-gold); display: inline-block; word-break: keep-all; }
@@ -44,14 +55,13 @@
         th span.zh-title { font-size: 13.5px; display: block; margin-bottom: 2px; font-weight: 800; letter-spacing: 0.3px; word-break: keep-all; }
         th span.en-title { font-size: 10.5px; display: block; font-weight: 500; opacity: 0.85; font-family: 'Inter', sans-serif; word-break: keep-all; }
         td { height: 45px; position: relative; text-align: left; }
-        .text-input, .static-course-display { border: none; background: transparent; width: 100%; height: 100%; outline: none; font-size: 13px; color: inherit; padding: 4px 8px; display: flex; align-items: center; justify-content: flex-start; }
+        .text-input, .static-course-display { border: none; background: transparent; width: 100%; height: 100%; outline: none; font-size: 13.5px; color: inherit; padding: 4px 8px; display: flex; align-items: center; justify-content: flex-start; }
         .static-course-display { font-weight: bold; color: var(--uci-blue); font-size: 13.5px; display: flex; flex-direction: column; align-items: center !important; justify-content: center !important; text-align: center !important; line-height: 1.3; padding: 4px 0; }
         .static-course-display .course-id { font-size: 14.5px; font-weight: 800; word-break: keep-all; }
         .static-course-display .course-zh { font-size: 12.5px; font-weight: 700; margin-top: 3px; word-break: keep-all; }
-        input[type="date"].text-input { display: block; line-height: normal; padding-right: 12px !important; font-size: 11.5px !important; letter-spacing: -0.2px; text-align: right !important; width: 100%; height: 100%; box-sizing: border-box; }
         .radio-group { display: flex; align-items: center; justify-content: flex-start; gap: 12px; padding-left: 4px; height: 100%; flex-wrap: wrap; }
         .radio-group label { display: flex; align-items: center; gap: 4px; cursor: pointer; white-space: nowrap; }
-        .payment-inline-row { display: flex; align-items: center; justify-content: flex-start; gap: 8px; padding-left: 4px; padding-right: 12px; height: 100%; width: 100%; flex-wrap: nowrap; }
+        .payment-inline-row { display: flex; align-items: center; justify-content: flex-start; gap: 8px; padding-left: 4px; padding-right: 12px; height: 100%; width: 100%; flex-wrap: wrap; }
         .payment-inline-row label { display: flex; align-items: center; gap: 4px; cursor: pointer; white-space: nowrap; }
         .offer-box { background-color: rgba(254, 204, 7, 0.18); border: 1.5px dashed var(--uci-gold); padding: 12px 16px; margin: 15px 0; border-radius: 6px; font-weight: 800; color: #856400; text-align: center; font-size: 14px; line-height: 1.6; word-break: keep-all; }
         .terms-header { text-align: center; color: var(--uci-blue); border-bottom: 2.5px solid var(--uci-blue); padding-bottom: 12px; margin-bottom: 22px; font-size: 19px; font-weight: 800; }
@@ -78,7 +88,54 @@
             body { background-color: transparent; padding: 0; }
             .page-container { box-shadow: none; max-width: 100%; }
             .submit-btn-container, .btn-clear-sig, #loadingOverlay { display: none !important; }
-            table, th, td { border: 1px solid #1b3d6d !important; }
+            table, th, td { border: 1px solid #1b3d6d !important; display: table-cell !important; }
+            tr { display: table-row !important; }
+        }
+
+        /* 📱 手機響應式排版 (解鎖高度與邊界防護) */
+        @media (max-width: 768px) {
+            body { padding: 6px 0; }
+            .page { padding: 16px 12px; }
+            
+            .header-section { flex-direction: column; align-items: center; text-align: center; }
+            .title-area { padding-right: 0; margin-bottom: 14px; }
+            
+            .table-responsive-wrapper { overflow-x: visible !important; }
+            table { width: 100% !important; min-width: 0 !important; display: block !important; border: none !important; }
+            tbody { display: block !important; width: 100% !important; }
+            tr { display: flex !important; flex-wrap: wrap !important; width: 100% !important; margin-bottom: 12px; border: 1.5px solid var(--uci-blue) !important; border-radius: 8px; overflow: hidden; background: #fff; }
+            
+            th { display: block !important; width: 100% !important; background-color: #e6f0fa !important; text-align: left !important; padding: 6px 10px !important; border-bottom: 1px solid var(--uci-blue) !important; border-right: none !important; }
+            th span.zh-title { font-size: 13px !important; display: inline-block !important; margin-right: 6px; }
+            th span.en-title { font-size: 10.5px !important; display: inline-block !important; }
+
+            td { 
+                display: block !important; 
+                width: 100% !important; 
+                height: auto !important; 
+                min-height: 48px !important; 
+                padding: 8px 10px !important; 
+                border: none !important; 
+                border-bottom: 1px dashed #cbd5e1 !important; 
+                box-sizing: border-box !important;
+            }
+            td:last-child { border-bottom: none !important; }
+
+            .text-input { 
+                height: 42px !important; 
+                line-height: normal !important; 
+                font-size: 14px !important; 
+                padding: 6px 10px !important; 
+                background-color: #fafbfc; 
+                border-radius: 6px; 
+                border: 1px solid #cbd5e1 !important; 
+                text-align: left !important;
+                box-sizing: border-box !important;
+            }
+            .text-input:focus { background-color: #fff !important; border-color: var(--uci-blue) !important; }
+            
+            .signature-section { flex-direction: column; gap: 15px; }
+            .signature-box { width: 100%; }
         }
     </style>
 </head>
@@ -133,9 +190,9 @@
                     <tbody>
                         <tr>
                             <th><span class="zh-title">中文姓名</span><span class="en-title">Chinese Name</span></th>
-                            <td><input type="text" id="student_name_zh" name="student_name_zh" class="text-input" required></td>
+                            <td><input type="text" id="student_name_zh" name="student_name_zh" class="text-input" placeholder="請輸入學員中文姓名" required></td>
                             <th><span class="zh-title">英文姓名</span><span class="en-title">English Name</span></th>
-                            <td><input type="text" id="student_name_en" name="student_name_en" class="text-input" required></td>
+                            <td><input type="text" id="student_name_en" name="student_name_en" class="text-input" placeholder="e.g. Joy Chen" required></td>
                             <th><span class="zh-title">性別</span><span class="en-title">Gender</span></th>
                             <td>
                                 <div class="radio-group">
@@ -146,33 +203,33 @@
                         </tr>
                         <tr>
                             <th><span class="zh-title">出生日期</span><span class="en-title">Date of Birth</span></th>
-                            <td><input type="date" id="dob" name="dob" class="text-input" required></td>
+                            <td><input type="text" id="dob" name="dob" class="text-input" placeholder="例：2018/05/20" required></td>
                             <th><span class="zh-title">就讀學校</span><span class="en-title">School</span></th>
-                            <td><input type="text" id="school_name" name="school_name" class="text-input"></td>
+                            <td><input type="text" id="school_name" name="school_name" class="text-input" placeholder="請填就讀國小/國中"></td>
                             <th><span class="zh-title">年級</span><span class="en-title">Grade</span></th>
                             <td>
-                                <div style="display: flex; align-items: center; justify-content: flex-start; padding: 0 8px; height: 100%;">
-                                    第 <input type="text" id="grade_level" name="grade_level" style="border: none; border-bottom: 1px solid #333; width: 50px; text-align: center; margin: 0 5px; background: transparent; outline: none;"> 年級
+                                <div style="display: flex; align-items: center; justify-content: flex-start; padding: 0 4px; height: 100%; white-space: nowrap;">
+                                    <input type="text" id="grade_level" name="grade_level" style="border: none; border-bottom: 1.5px solid #1b3d6d; width: 45px; text-align: center; margin: 0 2px; background: transparent; outline: none; font-weight: bold;" placeholder="如：7"> 年級
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <th><span class="zh-title">家長姓名</span><span class="en-title">Parent's Name</span></th>
-                            <td><input type="text" id="parent_name" name="parent_name" class="text-input" required></td>
+                            <td><input type="text" id="parent_name" name="parent_name" class="text-input" placeholder="請填家長全名" required></td>
                             <th><span class="zh-title">與學生關係</span><span class="en-title">Relationship</span></th>
-                            <td><input type="text" id="relationship" name="relationship" class="text-input" required></td>
+                            <td><input type="text" id="relationship" name="relationship" class="text-input" placeholder="如：父、母" required></td>
                             <th><span class="zh-title">聯絡電話</span><span class="en-title">Phone Number</span></th>
-                            <td><input type="tel" id="phone" name="phone" class="text-input" required></td>
+                            <td><input type="tel" id="phone" name="phone" class="text-input" placeholder="如：0912345678" required></td>
                         </tr>
                         <tr>
                             <th><span class="zh-title">電子信箱</span><span class="en-title">E-mail</span></th>
-                            <td colspan="3"><input type="email" id="email" name="email" class="text-input"></td>
+                            <td colspan="3"><input type="email" id="email" name="email" class="text-input" placeholder="接收開課與重要校務通知"></td>
                             <th><span class="zh-title">LINE ID</span><span class="en-title">LINE ID</span></th>
-                            <td><input type="text" id="line_id" name="line_id" class="text-input"></td>
+                            <td><input type="text" id="line_id" name="line_id" class="text-input" placeholder="方便課務聯繫"></td>
                         </tr>
                         <tr>
                             <th><span class="zh-title">通訊地址</span><span class="en-title">Mailing Address</span></th>
-                            <td colspan="5"><input type="text" id="address" name="address" class="text-input" required></td>
+                            <td colspan="5"><input type="text" id="address" name="address" class="text-input" placeholder="請填完整通訊地址" required></td>
                         </tr>
                     </tbody>
                 </table>
@@ -190,6 +247,7 @@
                             <th><span class="zh-title">標準上課時段</span><span class="en-title">Schedule</span></th>
                             <td colspan="2" id="timeDisplay" style="padding: 0; text-align: center; vertical-align: middle;">載入中...</td>
                         </tr>
+                        <!-- 🎯 Advance 系列專屬：保留「學員身分標籤」動態計費切換 -->
                         <tr>
                             <th><span class="zh-title">學員身分標籤</span><span class="en-title">Student Identity</span></th>
                             <td colspan="5">
@@ -230,7 +288,7 @@
                                     <label><input type="radio" name="payment_method" value="現金" checked onclick="updatePaymentMethodValue()"> 現金 Cash</label>
                                     <label style="display: flex; align-items: center; gap: 2px;">
                                         <input type="radio" id="pay_transfer_radio" name="payment_method" value="銀行轉帳" onclick="updatePaymentMethodValue()"> 銀行轉帳(後五碼)：
-                                        <input type="text" id="transfer_code" name="transfer_code" style="border: none; border-bottom: 1.5px solid #333; width: 60px; background: transparent; outline: none; text-align: center; font-size: 13px; height: 22px; padding: 0; margin-right: 8px;" oninput="updatePaymentMethodValue()">
+                                        <input type="text" id="transfer_code" name="transfer_code" style="border: none; border-bottom: 1.5px solid #333; width: 60px; background: transparent; outline: none; text-align: center; font-size: 13px; height: 22px; padding: 0;" oninput="updatePaymentMethodValue()">
                                     </label>
                                 </div>
                             </td>
@@ -265,19 +323,19 @@
 
             <div class="terms-list">
                 <div class="term-item">
-                    <strong>1. 審閱權與退費規定 / Review Period & Refund Policy：</strong><br>
+                    <strong>1. 審閱權與退費規定 / Refund Policy：</strong><br>
                     依據「桃園市短期補習班退費管理自治條例」規定辦理。家長攜回審閱期至少五日。開課前30日前退費者，退還全額；開課前1日至29日退費者，退還90%；開課後5日內要求退費者，退還80%；上課未逾全期1/3期間內要求退費者，退還50%；超過全期1/3學期者不予退費。教材發放後亦不予退還。<br>
-                    <span style="color: var(--text-sub); display: block; margin-top: 3px;">Processed according to the Taoyuan City Supplementary Education Refund Regulations. Parents have a review period of at least 5 days. Full refund for cancellations 30+ days prior to start date; 90% refund for cancellations 1-29 days prior; 80% refund if requested within 5 days after start date; 50% refund if requested before reaching 1/3 of total course duration; no refunds after 1/3 of total course duration. Distributed learning materials are non-refundable.</span>
+                    <span style="color: var(--text-sub); display: block; margin-top: 4px;">Refunds are processed in accordance with the "Taoyuan Short-term Cram School Refund Management Regulations." Parents have at least a 5-day contract review period. A 100% refund is issued if requested 30 days prior to the course start date; a 90% refund if requested 1 to 29 days prior; an 80% refund within the first 5 days of class; a 50% refund if requested after the 6th day but before completing 1/3 of the total course duration. No refunds will be issued after 1/3 of the course duration has passed. No refunds on textbook or material fees once distributed.</span>
                 </div>
                 <div class="term-item">
-                    <strong>2. 請假與補課 / Leave & Make-up Lessons Policy：</strong><br>
+                    <strong>2. 請假與補課 / Leave & Make-up Lessons：</strong><br>
                     因事或病假缺席者，請於上課前兩小時透過官方 LINE 或電話完成請假。完成請假者，本班將提供一對一或小組補課、輔導。無故缺課者（曠課）不予補課與退費。<br>
-                    <span style="color: var(--text-sub); display: block; margin-top: 3px;">For personal or sick leave, please notify us via official LINE or phone at least two hours prior to class. Students with proper leave requests will receive one-on-one or small-group make-up sessions or tutoring. Unexcused absences (truancy) are non-refundable and not eligible for make-up lessons.</span>
+                    <span style="color: var(--text-sub); display: block; margin-top: 4px;">In case of sick leave or personal leave, please notify the school via our official LINE account or phone at least 2 hours before class. For validated absences, the school will arrange one-on-one or small-group make-up tutoring. Unexcused absences (truancy) are non-refundable and not eligible for make-up lessons.</span>
                 </div>
                 <div class="term-item">
                     <strong>3. 安全與公共責任 / Safety & Public Liability Insurance：</strong><br>
                     為維護學生安全，下課後請家長按時前來接送。本補習班公共安全設施、消防設備以及公共意外責任險均嚴格符合政府法令規範。<br>
-                    <span style="color: var(--text-sub); display: block; margin-top: 3px;">To ensure student safety, parents are requested to pick up children promptly after class. Our public safety infrastructure, fire equipment, and public liability insurance strictly comply with government regulations.</span>
+                    <span style="color: var(--text-sub); display: block; margin-top: 4px;">To ensure student safety, parents are requested to pick up their children on time after class. Our school's public safety facilities, fire safety equipment, and public liability insurance strictly comply with government laws and regulations.</span>
                 </div>
                 <div class="term-item">
                     <strong>4. 肖像權合理授權 / Portrait Rights Authorization：</strong><br>
@@ -334,9 +392,9 @@
 var courseDatabase = {
     "Advance C1": { 
         id: "Advance C1",
-        zhName: "青少年觀點表達與結構寫作", 
-        time: "<div style='display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding: 4px 0;'><div style='font-weight:800; color:var(--uci-blue); font-size:13px; line-height:1.2;'><span class='no-orphan'>每週一晚上</span></div><div style='font-weight:700; color:var(--uci-blue); font-size:11.5px; line-height:1.2; margin-top:3px;'><span class='no-orphan'>7:00 PM - 9:00 PM (2小時/堂)</span></div></div>", 
-        lessons: 17, price: 850, materials: 2040, misc: 60 
+        zhName: "高術思維與實戰活用", 
+        time: "<div style='display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding: 4px 0;'><div style='font-weight:800; color:var(--uci-blue); font-size:13px; line-height:1.2;'><span class='no-orphan'>每週二、四</span></div><div style='font-weight:700; color:var(--uci-blue); font-size:11.5px; line-height:1.2; margin-top:3px;'><span class='no-orphan'>4:30 PM - 6:30 PM (2小時/堂)</span></div></div>", 
+        lessons: 38, price: 770, materials: 3520, misc: 60 
     }
 };
 
@@ -381,31 +439,30 @@ function loadRowDataIfPresent() {
                     var gRadios = document.querySelectorAll('input[name="gender"]');
                     gRadios.forEach(function(r){ if(r.value === row[4]) r.checked = true; });
                 }
-                if (row[5]) // 🎯 終極防彈本地時區轉換器：只抓年月日，絕不被時區扣一天！
-if (row[5]) {
-    var rawDob = row[5].toString();
-    var formattedDob = "";
-    
-    // 如果帶有世界時間 T，先轉成台灣本地時間的 Date 物件
-    if (rawDob.indexOf('T') !== -1) {
-        var dObj = new Date(rawDob);
-        var y = dObj.getFullYear();
-        var m = String(dObj.getMonth() + 1).padStart(2, '0');
-        var d = String(dObj.getDate()).padStart(2, '0');
-        formattedDob = y + "-" + m + "-" + d;
-    } else if (rawDob.indexOf('/') !== -1) {
-        var parts = rawDob.split('/');
-        if (parts.length === 3) {
-            var y = parts[0];
-            var m = parts[1].padStart(2, '0');
-            var d = parts[2].padStart(2, '0');
-            formattedDob = y + "-" + m + "-" + d;
-        }
-    } else {
-        formattedDob = rawDob;
-    }
-    document.getElementById('dob').value = formattedDob;
-}
+
+                if (row[5]) {
+                    var rawDob = row[5].toString();
+                    var formattedDob = "";
+                    if (rawDob.indexOf('T') !== -1) {
+                        var dObj = new Date(rawDob);
+                        var y = dObj.getFullYear();
+                        var m = String(dObj.getMonth() + 1).padStart(2, '0');
+                        var d = String(dObj.getDate()).padStart(2, '0');
+                        formattedDob = y + "-" + m + "-" + d;
+                    } else if (rawDob.indexOf('/') !== -1) {
+                        var parts = rawDob.split('/');
+                        if (parts.length === 3) {
+                            var y = parts[0];
+                            var m = parts[1].padStart(2, '0');
+                            var d = parts[2].padStart(2, '0');
+                            formattedDob = y + "-" + m + "-" + d;
+                        }
+                    } else {
+                        formattedDob = rawDob;
+                    }
+                    document.getElementById('dob').value = formattedDob;
+                }
+
                 if (row[6]) document.getElementById('school_name').value = row[6];
                 if (row[7]) document.getElementById('grade_level').value = row[7];
                 if (row[8]) document.getElementById('parent_name').value = row[8];
@@ -443,6 +500,8 @@ if (row[5]) {
                 if (document.getElementById('submitBtnContainer')) {
                     document.getElementById('submitBtnContainer').style.display = 'none';
                 }
+
+                calculateTuition();
 
                 if (autoPrint === 'true') { setTimeout(function() { window.print(); }, 800); }
             }
@@ -514,6 +573,7 @@ function isCanvasBlank(canvas) {
     return !pixelBuffer.some(function(color) { return color !== 0; });
 }
 
+// 🎯 Advance C1 專屬計費邏輯：結合「學員身分標籤」與「折扣率」
 function calculateTuition() {
     try {
         var courseKey = TARGET_COURSE;
@@ -525,8 +585,9 @@ function calculateTuition() {
         if (courseDatabase[courseKey]) {
             var course = courseDatabase[courseKey];
             labelDisplay.innerHTML = "<div class='course-id'>" + course.id + "</div><div class='course-zh'>" + course.zhName + "</div>";
-            document.getElementById('class_time').value = "每週一 7:00-9:00 PM";
+            document.getElementById('class_time').value = "每週二四 4:30-6:30 PM";
             
+            // 1. 取得折扣率
             var discountRate = 1.0;
             var activeDiscountRadio = document.querySelector('input[name="discount_plan"]:checked');
             if (activeDiscountRadio) {
@@ -534,15 +595,16 @@ function calculateTuition() {
                 document.getElementById('discount_plan_text').value = activeDiscountRadio.parentElement.innerText.trim();
             }
 
+            // 2. 取得學員身分並決定教材費
             var identity = "new";
             var activeIdentityRadio = document.querySelector('input[name="student_identity"]:checked');
             if (activeIdentityRadio) {
                 identity = activeIdentityRadio.value;
             }
 
-            var tuitionTotal = course.price * course.lessons; // 850 * 17 = 14,450
-            var materialsTotal = (identity === 'old_no_mat') ? 500 : course.materials; // 免購教材折算算式
-            var miscTotal = course.misc * course.lessons;     // 60 * 17 = 1,020
+            var tuitionTotal = course.price * course.lessons; // 770 * 38 = 29,260
+            var materialsTotal = (identity === 'old_no_mat') ? 0 : course.materials; // 新生/舊生含教材=$3,520，舊生免教材=$0
+            var miscTotal = course.misc * course.lessons;     // 60 * 38 = 2,280
             
             var subTotal = tuitionTotal + materialsTotal + miscTotal;
             var finalTotal = Math.round(subTotal * discountRate);
